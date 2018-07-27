@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /nicecoder
+
+spring:
+  # DataSource
+  datasource:
+    url: jdbc:mysql://nicecoder.cn:3306/dbtest?useSSL=false&serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    password: Cnm.0001+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # thymeleaf
+  thymeleaf:
+    encoding: UTF-8
+    cache: false
+    mode: HTML5
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.nicecoder.domain
+
+logging:
+  level:
+    cn.nicecoder.mapper: debug

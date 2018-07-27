@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>创作中心</title>
+	<link href="../simditor/simditor.css" th:href="@{/simditor/simditor.css}" rel="stylesheet">
+	<link href="../tag/css/tag.css" th:href="@{/tag/css/tag.css}" rel="stylesheet">
+</head>
+<style type="text/css">
+	.top-15{
+		margin-top:15px;	
+	}
+	
+	.left-10{
+		width:10%;
+		float:left;
+		line-height:40px;
+	}
+	
+	.right-90{
+		width:90%;
+		float:left;
+	}
+	
+	.dailyType{
+		width:50%;
+		padding-left:5px;
+	}
+	
+	.coverImg{
+		width:200px;
+		height:200px;
+	}
+	
+</style>
+<body class="layui-layout-body">
+	<!-- 公共头 -->
+	<div th:replace="~{fragments/header :: header}"></div>
+	
+	<div class="layui-layout layui-layout-admin">
+	
+	  	<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+		      	<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+		      	<ul class="layui-nav layui-nav-tree" lay-filter="test">
+		      		<li class="layui-nav-item">
+			          	<a class="" href="javascript:;">全局监控</a>
+			          	<dl class="layui-nav-child">
+			            	<dd><a href="admin.html">图表显示</a></dd>
+			          	</dl>
+			       	</li>
+		      	
+			        <li class="layui-nav-item layui-nav-itemed">
+			          	<a class="" href="javascript:;">所有商品</a>
+			          	<dl class="layui-nav-child">
+			            	<dd class="layui-this"><a href="dailyManage.html">列表一</a></dd>
+			            	<dd><a href="javascript:;">列表二</a></dd>
+			            	<dd><a href="classifyManage.html">列表三</a></dd>
+			            	<dd><a href="">超链接</a></dd>
+			          	</dl>
+			       	</li>
+			        <li class="layui-nav-item">
+			          	<a href="javascript:;">解决方案</a>
+			          	<dl class="layui-nav-child">
+			          		<dd><a href="javascript:;">列表一</a></dd>
+			            	<dd><a href="javascript:;">列表二</a></dd>
+			            	<dd><a href="">超链接</a></dd>
+			          	</dl>
+			        </li>
+			        <li class="layui-nav-item"><a href="">云市场</a></li>
+			        <li class="layui-nav-item"><a href="">发布商品</a></li>
+		      	</ul>
+		    </div>
+	 	</div>
+ 	
+	  
+	  	<!-- 各个菜单对应页面 -->
+	  	<div class="layui-body" style="padding:20px;">
+	  		<form action="saveDaily.html" method="post" class="layui-form">
+	  			<!-- 标题 -->
+	  			<input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+				
+				<!-- 内容 -->
+				<div class="top-15">
+					<textarea name="content" id="editor" placeholder="Balabala" autofocus></textarea>
+				</div>
+				
+				<!-- 封面 -->
+				<div class="top-15">
+					<div class="left-10">封面：</div>
+					<div class="right-90">
+						<div class="layui-upload dailyType">
+							<button type="button" class="layui-btn" id="coverUpload">上传图片</button>
+						</div>&nbsp;
+						<input type="hidden" name="cover">
+					</div>
+				</div>
+				
+				<!-- 标签 -->
+				<div class="top-15">
+					<div class="left-10">文章标签：</div>
+					<div class="right-90"><input type="text" id="tagValue" name="tag"  class="layui-input" required  lay-verify="required" placeholder="添加标签"></div>
+				</div>
+				
+				<!-- 分类 -->
+				<div class="top-15">
+					<div class="left-10">文章分类：</div>
+					<div class="right-90">
+						<div class="layui-form-item dailyType">
+							<select name="type" lay-verify="required">
+								<option value="">请选择一个分类</option>
+								<option value="0">北京</option>
+								<option value="1">上海</option>
+								<option value="2">杭州</option>
+							</select>
+						</div>    
+					</div>
+				</div>
+				
+				<div class="top-15">
+					<button class="layui-btn" type="submit" lay-submit lay-filter="dailySubmit">发布文章</button>
+					<button class="layui-btn" type="button">保存草稿</button>
+					<button class="layui-btn layui-btn-primary" type="button">返回</button>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+	<!-- 公共的脚 -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
+    <script src="../simditor/module.js" th:src="@{/simditor/module.js}"></script>
+    <script src="../simditor/hotkeys.js" th:src="@{/simditor/hotkeys.js}"></script>
+    <script src="../simditor/uploader.js" th:src="@{/simditor/uploader.js}"></script>
+    <script src="../simditor/simditor.js" th:src="@{/simditor/simditor.js}"></script>
+    <script src="../tag/js/tag.js" th:src="@{/tag/js/tag.js}"></script>
+	<script>
+		//表单
+		layui.use('form', function(){
+			var form = layui.form;
+			//监听提交
+			form.on('submit(dailySubmit)', function(data){
+				layer.msg(JSON.stringify(data.field));
+			});
+		});
+		
+		//图片上传部分
+		layui.use('upload', function(){
+			var upload = layui.upload; //得到 upload 对象
+			
+			//创建一个上传组件
+			upload.render({
+				elem: '#coverUpload'
+				,url: 'http://nicecoder.cn/imageupload/imageUpload'
+				,done: function(res, index, upload){ //上传后的回
+					layer.msg('上传成功！'); 
+					$("input[name='cover']").val(res.data.src);
+				} 
+			});
+		});
+	
+		//编辑器部分
+		var editor = new Simditor({ 
+		  	textarea: $('#editor'),
+		  	upload:{
+		  	    url: "http://nicecoder.cn/imageupload/imageUpload",
+		  	    params: null,
+		  	    fileKey: 'upload_file',
+		  	    connectionCount: 3,
+		  	    leaveConfirm: '正在上传，是否确定要离开界面？'
+		  	},
+			toolbar:['title','bold','italic','underline','strikethrough',
+			         'fontScale','color','ol','ul','blockquote','code',        
+			         'table','link','image','hr','indent','outdent','alignment']
+		});
+		
+		//标签部分
+		/* 实例：var tag2 = new Tag("tagValue2");
+		tag2.tagValue = "浙江,绍兴,上海,山东,北京,四川";
+		tag2.isDisable=true;
+		tag2.initView();*/
+		var tag = new Tag("tagValue");
+		tag.initView();
+		
+		var cls = new Tag("classValue");
+		cls.initView();
+		
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      th:fragment="header">
+<head>
+	<meta charset="UTF-8">
+	<link href="../layui/css/layui.css" th:href="@{/layui/css/layui.css}" rel="stylesheet">
+	<link href="../font-awesome-4.7.0/css/font-awesome.min.css" th:href="@{/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-header">
+		    <div class="layui-logo">创作中心</div>
+		    <ul class="layui-nav layui-layout-left">
+		      	<li class="layui-nav-item"><a href="dailyPage.html"><i class="layui-icon layui-icon-edit" style="font-size: 15px; color: #BDBEC1;"></i> &nbsp;写文章</a></li>
+		      	<!-- <li class="layui-nav-item">
+		        	<a href="javascript:;">其它系统</a>
+	        		<dl class="layui-nav-child">
+		          	<dd><a href="">邮件管理</a></dd>
+		          	<dd><a href="">消息管理</a></dd>
+		          	<dd><a href="">授权管理</a></dd>
+		        	</dl>
+		      	</li> -->
+		    </ul>
+		    <ul class="layui-nav layui-layout-right">
+		      	<li class="layui-nav-item">
+					<a href="javascript:;">
+		          		<img src="http://nicecoder.cn/images/20180612/20180612_135262.jpg" class="layui-nav-img">
+		        		 马铃薯头
+		        	</a>
+		        	<dl class="layui-nav-child">
+		          		<dd><a href="">基本资料</a></dd>
+		          		<dd><a href="">安全设置</a></dd>
+		        	</dl>
+		      	</li>
+		      	<li class="layui-nav-item"><a href="">退了</a></li>
+	    	</ul>
+	  	</div>
+  	</div>
+</body>
+</html>

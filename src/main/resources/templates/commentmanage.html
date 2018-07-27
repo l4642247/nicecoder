@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>评论管理</title>
+	<link href="../tag/css/tag.css" th:href="@{/tag/css/tag.css}" rel="stylesheet">
+	<link href="../css/commentmanage.css" th:href="@{/css/commentmanage.css}" rel="stylesheet">
+</head>
+<style type="text/css">
+	
+</style>
+<body class="layui-layout-body">
+	<!-- 公共头 -->
+	<div th:replace="~{fragments/header :: header}"></div>
+	
+	<div class="layui-layout layui-layout-admin">
+	
+	  	<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+		      	<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+		      	<ul class="layui-nav layui-nav-tree" lay-filter="test">
+		      		<li class="layui-nav-item">
+			          	<a class="" href="javascript:;">全局监控</a>
+			          	<dl class="layui-nav-child">
+			            	<dd><a href="admin.html">图表显示</a></dd>
+			          	</dl>
+			       	</li>
+		      	
+			        <li class="layui-nav-item layui-nav-itemed">
+			          	<a class="" href="javascript:;">所有商品</a>
+			          	<dl class="layui-nav-child">
+			            	<dd><a href="dailyManage.html">列表一</a></dd>
+			            	<dd class="layui-this"><a href="commentManage.html">列表二</a></dd>
+			            	<dd><a href="classifyManage.html">列表三</a></dd>
+			            	<dd><a href="">超链接</a></dd>
+			          	</dl>
+			       	</li>
+			        <li class="layui-nav-item">
+			          	<a href="javascript:;">解决方案</a>
+			          	<dl class="layui-nav-child">
+			          		<dd><a href="javascript:;">列表一</a></dd>
+			            	<dd><a href="javascript:;">列表二</a></dd>
+			            	<dd><a href="">超链接</a></dd>
+			          	</dl>
+			        </li>
+			        <li class="layui-nav-item"><a href="">云市场</a></li>
+			        <li class="layui-nav-item"><a href="">发布商品</a></li>
+		      	</ul>
+		    </div>
+	 	</div>
+ 	
+	  
+	  	<!-- 各个菜单对应页面 -->
+	  	<div class="layui-body" style="padding:20px;">
+	  		<div class="title"><span>分类管理</span></div>
+	  	
+	  		<!-- 导航 -->
+	  		<div class="border-bottom">
+				<ul class="layui-nav" style="background-color:#fff; margin-left:-20px;">
+			      	<li class="layui-nav-item layui-this"><a href="" style="color:#000">我的文章评论</a>
+			    </ul>
+		    </div>
+		    
+		    <!-- 评论 -->
+		    <div class="item">
+				<div class="item-describe">
+					<span class="sgin">
+						<img alt="用户头像" src="images/1_angelmymei.jpg">
+					</span>
+					<span class="left" style="margin-left:0px;">Chenl_97</span>
+					<span class="left">1天前</span>
+					<span class="left">回复了你的文章</span>
+					<span class="left"><a href="">Jsp+Servlet+JDBC新闻发布系统2.0</a></span>
+					
+					<span class="right" style="margin-right:0px; border:0px;"><a href="javascript:;" onclick="reply(1)">快速回复</a></span>
+					<span class="right"><a href="">删除</a></span>
+				</div>
+				
+				<div class="reply">
+					<i class="fa fa-quote-left"></i>&nbsp;
+					我只能找到这个呢，emmmmm求sql配置信息。。十分感谢
+					&nbsp;<i class="fa fa-quote-right"></i>
+					
+					<div class="replyback" id="replydiv1" hidden>
+						<span class="sgin">
+							<img alt="用户头像" src="images/1_angelmymei.jpg">
+						</span>
+						<div class="editreply">
+							<form class="layui-form" action="">
+							    <input type="text" name="reply" placeholder="请输入回复内容" autocomplete="off" class="layui-input left-0">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">回复评论</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 评论 -->
+		    <div class="item">
+				<div class="item-describe">
+					<span class="sgin">
+						<img alt="用户头像" src="images/1_angelmymei.jpg">
+					</span>
+					<span class="left" style="margin-left:0px;">Chenl_97</span>
+					<span class="left">1天前</span>
+					<span class="left">回复了你的文章</span>
+					<span class="left"><a href="">Jsp+Servlet+JDBC新闻发布系统2.0</a></span>
+					
+					<span class="right" style="margin-right:0px; border:0px;"><a href="javascript:;" onclick="reply(2)">快速回复</a></span>
+					<span class="right"><a href="">删除</a></span>
+				</div>
+				
+				<div class="reply">
+					<i class="fa fa-quote-left"></i>&nbsp;
+					我只能找到这个呢，emmmmm求sql配置信息。。十分感谢
+					&nbsp;<i class="fa fa-quote-right"></i>
+					
+					<div class="replyback" id="replydiv2" hidden>
+						<span class="sgin">
+							<img alt="用户头像" src="images/1_angelmymei.jpg">
+						</span>
+						<div class="editreply">
+							<form class="layui-form" action="">
+							    <input type="text" name="reply" placeholder="请输入回复内容" autocomplete="off" class="layui-input left-0">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">回复评论</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 评论 -->
+		    <div class="item">
+				<div class="item-describe">
+					<span class="sgin">
+						<img alt="用户头像" src="images/1_angelmymei.jpg">
+					</span>
+					<span class="left" style="margin-left:0px;">Chenl_97</span>
+					<span class="left">1天前</span>
+					<span class="left">回复了你的文章</span>
+					<span class="left"><a href="">Jsp+Servlet+JDBC新闻发布系统2.0</a></span>
+					
+					<span class="right" style="margin-right:0px; border:0px;"><a href="javascript:;" onclick="reply(3)">快速回复</a></span>
+					<span class="right"><a href="">删除</a></span>
+				</div>
+				
+				<div class="reply">
+					<i class="fa fa-quote-left"></i>&nbsp;
+					我只能找到这个呢，emmmmm求sql配置信息。。十分感谢
+					&nbsp;<i class="fa fa-quote-right"></i>
+					
+					<div class="replyback" id="replydiv3" hidden>
+						<span class="sgin">
+							<img alt="用户头像" src="images/1_angelmymei.jpg">
+						</span>
+						<div class="editreply">
+							<form class="layui-form" action="">
+							    <input type="text" name="reply" placeholder="请输入回复内容" autocomplete="off" class="layui-input left-0">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">回复评论</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		    <div id="page"></div>
+		    
+		</div>
+		
+	</div>
+	<!-- 公共的脚 -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
+	<script>
+		//表单
+		layui.use('form', function(){
+			var form = layui.form;
+			//监听提交
+			form.on('submit(formDemo)', function(data){
+				layer.msg(JSON.stringify(data.field));
+				return false;
+			});
+		});
+		
+		//分页
+		layui.use(['laypage', 'layer'], function(){
+			var laypage = layui.laypage
+			,layer = layui.layer;
+			
+			//完整功能
+			laypage.render({
+				elem: 'page'
+				,count: 100
+				,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
+				,jump: function(obj){
+					console.log(obj)
+				}
+			});
+			
+			//调用分页
+			laypage.render({
+				elem: 'demo20'
+				,count: data.length
+				,jump: function(obj){
+				//模拟渲染
+				document.getElementById('biuuu_city_list').innerHTML = function(){
+					var arr = []
+					,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+					layui.each(thisData, function(index, item){
+						arr.push('<li>'+ item +'</li>');
+					});
+					return arr.join('');
+				}();
+				}
+			});
+			  
+		});
+		
+		
+		function reply(id){
+			$("#replydiv"+id).animate({
+			      height:'toggle'
+		    });
+		}
+	</script>
+</body>
+</html>

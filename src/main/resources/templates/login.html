@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的日常</title>
+<body>
+    <div th:replace="~{fragments/header :: header}"></div>
+
+    <form action="login" method="post">
+        <input type="text" name="usernmame"/>
+        <input type="password" name="password"/>
+        <input type="submit" value="登陆">
+    </form>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

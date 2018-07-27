@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nicecoder.mapper.TblDailyMapper">
+  <resultMap id="BaseResultMap" type="TblDaily">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="settop" jdbcType="CHAR" property="type" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="click" jdbcType="INTEGER" property="click" />
+    <result column="typename" jdbcType="VARCHAR" property="typename" />
+    <result column="wordcount" jdbcType="INTEGER" property="wordcount" />
+    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
+    <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="TblDaily">
+    <result column="content" jdbcType="LONGVARBINARY" property="content" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  
+  <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    t1.id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime, typename
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_daily t1 left join tbl_type t2 on t1.type = t2.id
+    where t1.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findAll" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_daily order by createtime desc
+  </select>
+  
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from tbl_daily
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="TblDaily" useGeneratedKeys="true" keyProperty="id">
+    insert into tbl_daily
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="settop != null">
+        settop,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="click != null">
+        click,
+      </if>
+      <if test="wordcount != null">
+        wordcount,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="settop != null">
+        #{settop,jdbcType=CHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="click != null">
+        #{click,jdbcType=INTEGER},
+      </if>
+      <if test="wordcount != null">
+        #{wordcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="TblDaily">
+    update tbl_daily
+    <set>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="settop != null">
+        settop = #{settop,jdbcType=CHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="click != null">
+        click = #{click,jdbcType=INTEGER},
+      </if>
+      <if test="wordcount != null">
+        wordcount = #{wordcount,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
