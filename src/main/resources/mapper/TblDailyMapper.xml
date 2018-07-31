@@ -13,6 +13,8 @@
     <result column="wordcount" jdbcType="INTEGER" property="wordcount" />
     <result column="createtime" jdbcType="VARCHAR" property="createtime" />
     <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
+
+    <result column="dir" jdbcType="VARCHAR" property="dir" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="TblDaily">
     <result column="content" jdbcType="LONGVARBINARY" property="content" />
@@ -27,11 +29,39 @@
   
   <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select
-    t1.id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime, typename
-    ,
+    t1.id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime, typename,
     <include refid="Blob_Column_List" />
     from tbl_daily t1 left join tbl_type t2 on t1.type = t2.id
     where t1.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findAllByCondition" parameterType="map" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_daily where 1=1
+    <if test="tag != null">
+      AND id in (select dailyid from tbl_tag_daily where tagid = #{tag,jdbcType=INTEGER})
+    </if>
+    <if test="keyword != null">
+      AND content LIKE CONCAT('%',#{keyword},'%')
+    </if>
+    <if test="type != null">
+      AND type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="date != null">
+      AND left(createtime, 8) &lt;= #{date,jdbcType=VARCHAR}
+    </if>
+    LIMIT #{start},#{end}
+  </select>
+
+  <select id="selectHotEight" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_daily order by createtime desc limit 8
   </select>
 
   <select id="findAll" resultMap="ResultMapWithBLOBs">
@@ -40,6 +70,10 @@
     ,
     <include refid="Blob_Column_List" />
     from tbl_daily order by createtime desc
+  </select>
+
+  <select id="findNearById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    (SELECT *,0 as dir FROM tbl_daily WHERE id &lt; #{id,jdbcType=INTEGER} ORDER BY id DESC LIMIT 1) UNION ALL (SELECT *,1 as dir FROM tbl_daily WHERE id &gt; #{id,jdbcType=INTEGER} LIMIT 1)
   </select>
   
   <delete id="delete" parameterType="java.lang.Integer">

@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface TblTypeMapper {
     List<TblType> findAll();
+    void increase(Integer id);
+    List<TblType> selectFirstFive();
 }

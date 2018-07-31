@@ -34,6 +34,16 @@ public class TblDaily {
 
     private byte[] content;
 
+    private String dir;
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
+
     public String getContentStr() {
         return contentStr;
     }

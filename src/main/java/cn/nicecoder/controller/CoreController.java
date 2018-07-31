@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +36,23 @@ public class CoreController {
 
     @GetMapping("/")
     public String root(){
-        return "redirect:/index";
+        return "redirect:/index.html";
     }
 
-    @GetMapping("/index")
-    public ModelAndView index(){
-        List<TblDaily> tblDailys = tblDailyMapper.findAll();
+    @GetMapping("/index.html")
+    public ModelAndView index(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
+            , @RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type, @RequestParam(value="tag" ,required = false)  String tag
+            , @RequestParam(value="keyword" ,required = false)  String keyword){
+        HashMap queryMap = new HashMap();
+        int start = page * count;
+        int end = start + count;
+        queryMap.put("start", start);
+        queryMap.put("end", end);
+        queryMap.put("date", date);
+        queryMap.put("type", type);
+        queryMap.put("keyword", keyword);
+        queryMap.put("tag", tag);
+        List<TblDaily> tblDailys = tblDailyMapper.findAllByCondition(queryMap);
         List<TblType> tblTypes = tblTypeMapper.findAll();
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("tblDailys",tblDailys);
@@ -60,8 +73,24 @@ public class CoreController {
         //数据转换
         tblDaily.setCreatetime(DateUtil.getDate(tblDaily.getCreatetime()));
         tblDaily.setContentStr(new String(tblDaily.getContent()));
+        //查询该文章标签
+        ArrayList<TblTag> tblTags = tblTagMapper.selectByDailyId(id);
+        //查询所有标签
+        ArrayList<TblTag> allTag = tblTagMapper.findAll();
+        //查询附近文章
+        List<TblDaily> nearDaily = tblDailyMapper.findNearById(id);
+        for(TblDaily item: nearDaily){
+            if(item.getDir().equals("0")){
+                mv.addObject("preDaily",item);
+            }
+            if(item.getDir().equals("1")){
+                mv.addObject("nextDaily",item);
+            }
+        }
         mv.addObject("tblDaily",tblDaily);
         mv.addObject("tblTypes",tblTypes);
+        mv.addObject("tblTags",tblTags);
+        mv.addObject("allTag",allTag);
         return mv;
     }
 
@@ -97,19 +126,17 @@ public class CoreController {
      * @return
      */
     @GetMapping("/dailyManage.html")
-    public String dailyManage(@RequestParam(value="page" ,required = false) int page, @RequestParam(value="count" ,required = false) int count
-            ,@RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type
+    public String dailyManage(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
+            , @RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type
             , @RequestParam(value="keyword" ,required = false)  String keyword){
         Map<String, String> queryMap = new HashMap<String, String>();
         int start = page * count;
         int end = start + count;
-        queryMap.put("start",start+"");
-        queryMap.put("end",end+"");
+        queryMap.put("start", start + "");
+        queryMap.put("end", end + "");
         queryMap.put("date",date);
         queryMap.put("type",type);
         queryMap.put("keyword",keyword);
-        
-
         return "dailymanage";
     }
 
@@ -139,6 +166,7 @@ public class CoreController {
     @PostMapping("/saveDaily.html")
     public String insertDaily(@RequestParam("content") String content, @RequestParam("title") String title, @RequestParam("tag") String tag
             , @RequestParam("cover")  String cover, @RequestParam("type")  String type, @RequestParam(value="id" ,required = false)  String id){
+        //插入文章
         TblDaily tblDaily = new TblDaily();
         tblDaily.setContent(content.getBytes());
         tblDaily.setCover(cover);
@@ -149,13 +177,13 @@ public class CoreController {
         //添加摘要和字数
         content = StringUtil.delHtmlTag(content);
         tblDaily.setWordcount(content.length());
-        tblDaily.setSummary(content.length() < 100 ? content : content.substring(100));
+        //tblDaily.setSummary(content.length() < 100 ? content : content.substring(100));
         tblDailyMapper.insert(tblDaily);
 
-        //查询
+        //标签管理
         String[] tags = tag.split(",");
         for (String item : tags) {
-            TblTag tblTag =  tblTagMapper.selectByTagname(item);
+            TblTag tblTag =  tblTagMapper.selectByTagName(item);
             if(null == tblTag){
                 tblTag = new TblTag();
                 tblTag.setTagname(item);
@@ -173,8 +201,35 @@ public class CoreController {
                 tblTagDailyMapper.insert(tblTagDaily);
             }
         }
+
+        //分类管理
+        tblTypeMapper.increase(Integer.parseInt(type));
+
         return "daily";
     }
 
+    /**
+     * 查询前八条热门信息
+     * @return
+     */
+    @RequestMapping(value = "/getDailyHotShow", method = RequestMethod.GET)
+    @ResponseBody
+    public String getDailyHotShow(){
+        JSONObject result = new JSONObject();
+        result.put("dailyList", tblDailyMapper.selectHotEight());
+        return result.toString();
+    }
+
+    /**
+     * 查询前五条类别信息
+     * @return
+     */
+    @RequestMapping(value = "/getTypeShow", method = RequestMethod.GET)
+    @ResponseBody
+    public String getTypeShow(){
+        JSONObject result = new JSONObject();
+        result.put("typeList", tblTypeMapper.selectFirstFive());
+        return result.toString();
+    }
 
 }

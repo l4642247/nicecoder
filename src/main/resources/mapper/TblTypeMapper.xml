@@ -18,6 +18,12 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectFirstFive" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tbl_type order by creattime limit 5
+  </select>
+
   <select id="findAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -60,6 +66,10 @@
       </if>
     </trim>
   </insert>
+
+  <update id="increase"  parameterType="java.lang.Integer">
+          update tbl_type set count = count + 1 where id = #{id,jdbcType=INTEGER}
+  </update>
 
   <update id="update" parameterType="TblType">
     update tbl_type
