@@ -13,4 +13,5 @@ public interface TblDailyMapper {
     TblDaily findByPrimaryKey(int id);
     List<TblDaily> selectHotEight();
     List<TblDaily> findNearById(int id);
+    int getCount();
 }

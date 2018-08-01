@@ -72,6 +72,10 @@
     from tbl_daily order by createtime desc
   </select>
 
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(1) from tbl_daily
+  </select>
+
   <select id="findNearById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     (SELECT *,0 as dir FROM tbl_daily WHERE id &lt; #{id,jdbcType=INTEGER} ORDER BY id DESC LIMIT 1) UNION ALL (SELECT *,1 as dir FROM tbl_daily WHERE id &gt; #{id,jdbcType=INTEGER} LIMIT 1)
   </select>

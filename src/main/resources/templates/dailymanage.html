@@ -104,12 +104,12 @@
 		    </form>
 		    
 		    <!-- 文章 -->
-		    <div class="item">
-				<div class="item-title"><span class="sgin">置顶</span><div class="left-0">Simditor跨域上传图片到服务器</div></div>	
+		    <div class="item" th:each="tblDaily : ${tblDailys}">
+				<div class="item-title"><span class="sgin">置顶</span><div class="left-0" th:text="${tblDaily.title}">Simditor跨域上传图片到服务器</div></div>
 				<div class="item-describe">
 					<span class="left" style="margin-left:0px;">原创</span>
 					<span class="left">2018年05月10日 14:39:10</span>
-					<span class="left">浏览：11</span>
+					<span class="left" th:text="${tblDaily.click}">浏览：11</span>
 					<span class="left">评论：10</span>
 					
 					<span class="right" style="margin-right:0px; border:0px;"><a href="">删除</a></span>
@@ -118,37 +118,7 @@
 					<span class="right"><a href="">查看</a></span>
 				</div>
 			</div>
-			
-			<div class="item">
-				<div class="item-title"><span class="sgin">置顶</span><div class="left-0">Simditor跨域上传图片到服务器</div></div>	
-				<div class="item-describe">
-					<span class="left" style="margin-left:0px;">原创</span>
-					<span class="left">2018年05月10日 14:39:10</span>
-					<span class="left">浏览：11</span>
-					<span class="left">评论：10</span>
-					
-					<span class="right" style="margin-right:0px; border:0px;"><a href="">删除</a></span>
-					<span class="right"><a href="">取消置顶</a></span>
-					<span class="right"><a href="">禁止评论</a></span>
-					<span class="right"><a href="">查看</a></span>
-				</div>
-			</div>
-			
-			<div class="item">
-				<div class="item-title"><span class="sgin">置顶</span><div class="left-0">Simditor跨域上传图片到服务器</div></div>	
-				<div class="item-describe">
-					<span class="left" style="margin-left:0px;">原创</span>
-					<span class="left">2018年05月10日 14:39:10</span>
-					<span class="left">浏览：11</span>
-					<span class="left">评论：10</span>
-					
-					<span class="right" style="margin-right:0px; border:0px;"><a href="">删除</a></span>
-					<span class="right"><a href="">取消置顶</a></span>
-					<span class="right"><a href="">禁止评论</a></span>
-					<span class="right"><a href="">查看</a></span>
-				</div>
-			</div>
-			
+
 		    <div id="page"></div>
 		    
 		</div>

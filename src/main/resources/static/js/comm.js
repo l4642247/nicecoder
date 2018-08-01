@@ -1,24 +1,26 @@
 $(document).ready(function () {
 	
-	//å¤´éƒ¨
-	var oH2 = document.getElementById("mnavh");
-	var oUl = document.getElementById("starlist");  
-	oH2.onclick = function ()
-	{
-		var style = oUl.style;
-		style.display = style.display == "block" ? "none" : "block";
-		oH2.className = style.display == "block" ? "open" : ""
-	}
-	var obj=null;
-	var As=document.getElementById('starlist').getElementsByTagName('a');
-	obj = As[0];
-	for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
-	obj=As[i];}
-	obj.id='selected';
+	
+	
+    //nav
+	$("#mnavh").click(function(){
+    $("#starlist").toggle();
+	$("#mnavh").toggleClass("open");
+	});
+	  
+var obj=null;
+var As=document.getElementById('starlist').getElementsByTagName('a');
+obj = As[0];
+for(i=1;i<As.length;i++){if(window.location.href.indexOf(As[i].href)>=0)
+obj=As[i];}
+obj.id='selected';
 
+	
+  
 	var new_scroll_position = 0;
 	var last_scroll_position;
 	var header = document.getElementById("header");
+
 	window.addEventListener('scroll', function(e) {
 	  last_scroll_position = window.scrollY;
 
@@ -39,15 +41,15 @@ $(document).ready(function () {
 	});
 	
 	
-	// è¿”å›žé¡¶ç«¯
+	//»Øµ½¶¥²¿
     // browser window scroll (in pixels) after which the "back to top" link is shown
     var offset = 300,
-	//browser window scroll (in pixels) after which the "back to top" link opacity is reduced
-	offset_opacity = 1200,
-	//duration of the top scrolling animation (in ms)
-	scroll_top_duration = 700,
-	//grab the "back to top" link
-	$back_to_top = $('.cd-top');
+        //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+        offset_opacity = 1200,
+        //duration of the top scrolling animation (in ms)
+        scroll_top_duration = 700,
+        //grab the "back to top" link
+        $back_to_top = $('.cd-top');
 
     //hide or show the "back to top" link
     $(window).scroll(function () {
@@ -65,16 +67,19 @@ $(document).ready(function () {
         );
     });
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½
-		    "use strict";
-	/*    var Sticky = new hcSticky('aside', {
-	      stickTo: 'article',
-	      innerSticker: '#stickMe',
-	      queries: {
-	        980: {
-	          disable: true
-	        }
-	      }
-	    });*/
+	//²àÀ¸¹Ì¶¨
+		   
+	//aside
+    var Sticky = new hcSticky('aside', {
+      stickTo: 'main',
+      innerTop: 200,
+      followScroll: false,
+      queries: {
+        480: {
+          disable: true,
+          stickTo: 'body'
+        }
+      }
+    });
 	
 	});

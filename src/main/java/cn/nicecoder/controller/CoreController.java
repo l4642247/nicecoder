@@ -34,12 +34,12 @@ public class CoreController {
     @Autowired
     TblTypeMapper tblTypeMapper;
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String root(){
         return "redirect:/index.html";
     }
 
-    @GetMapping("/index.html")
+    @GetMapping(value = {"/index.html", "/detail/index.html"})
     public ModelAndView index(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
             , @RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type, @RequestParam(value="tag" ,required = false)  String tag
             , @RequestParam(value="keyword" ,required = false)  String keyword){
@@ -65,8 +65,8 @@ public class CoreController {
      * @param id
      * @return
      */
-    @GetMapping("/info")
-    public ModelAndView info(@RequestParam(value="id") Integer id){
+    @GetMapping("/detail/art_{id}.html")
+    public ModelAndView info(@PathVariable(value="id") Integer id){
         TblDaily tblDaily = tblDailyMapper.findByPrimaryKey(id);
         List<TblType> tblTypes = tblTypeMapper.findAll();
         ModelAndView mv = new ModelAndView("info");
@@ -94,17 +94,17 @@ public class CoreController {
         return mv;
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin.html")
     public String admin(){
         return "admin";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/login.html")
     public String login(){
         return "login";
     }
 
-    @GetMapping("/login-error")
+    @GetMapping("/login-error.html")
     public String loginError(Model model){
         model.addAttribute("loginError", true);
         model.addAttribute("errorMsg","登录失败，用户名或者密码错误！");
@@ -120,24 +120,29 @@ public class CoreController {
         return "daily";
     }
 
-
     /**
      * 日常管理页面
      * @return
      */
     @GetMapping("/dailyManage.html")
-    public String dailyManage(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
+    public ModelAndView dailyManage(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
             , @RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type
             , @RequestParam(value="keyword" ,required = false)  String keyword){
-        Map<String, String> queryMap = new HashMap<String, String>();
+        HashMap queryMap = new HashMap();
         int start = page * count;
         int end = start + count;
-        queryMap.put("start", start + "");
-        queryMap.put("end", end + "");
-        queryMap.put("date",date);
-        queryMap.put("type",type);
-        queryMap.put("keyword",keyword);
-        return "dailymanage";
+        queryMap.put("start", start);
+        queryMap.put("end", end);
+        queryMap.put("date", date);
+        queryMap.put("type", type);
+        queryMap.put("keyword", keyword);
+
+        List<TblDaily> tblDailys = tblDailyMapper.findAllByCondition(queryMap);
+        ModelAndView mv = new ModelAndView("dailymanage");
+        int resultCount = tblDailyMapper.getCount();
+        mv.addObject("count",resultCount);
+        mv.addObject("tblDailys",tblDailys);
+        return mv;
     }
 
     /**
@@ -157,7 +162,6 @@ public class CoreController {
     public String classifyManage(){
         return "classifymanage";
     }
-
 
     /**
      * 插入
@@ -212,7 +216,7 @@ public class CoreController {
      * 查询前八条热门信息
      * @return
      */
-    @RequestMapping(value = "/getDailyHotShow", method = RequestMethod.GET)
+    @RequestMapping(value = {"/getDailyHotShow", "/detail/getDailyHotShow"}, method = RequestMethod.GET)
     @ResponseBody
     public String getDailyHotShow(){
         JSONObject result = new JSONObject();
@@ -224,7 +228,7 @@ public class CoreController {
      * 查询前五条类别信息
      * @return
      */
-    @RequestMapping(value = "/getTypeShow", method = RequestMethod.GET)
+    @RequestMapping(value = {"/getTypeShow", "/detail/getTypeShow"}, method = RequestMethod.GET)
     @ResponseBody
     public String getTypeShow(){
         JSONObject result = new JSONObject();
