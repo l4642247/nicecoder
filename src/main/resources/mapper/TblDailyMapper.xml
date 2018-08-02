@@ -11,6 +11,8 @@
     <result column="click" jdbcType="INTEGER" property="click" />
     <result column="typename" jdbcType="VARCHAR" property="typename" />
     <result column="wordcount" jdbcType="INTEGER" property="wordcount" />
+    <result column="agree" jdbcType="INTEGER" property="agree" />
+    <result column="display" jdbcType="CHAR" property="display" />
     <result column="createtime" jdbcType="VARCHAR" property="createtime" />
     <result column="updatetime" jdbcType="VARCHAR" property="updatetime" />
 
@@ -21,7 +23,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime
+    id, cover, title, type, settop, summary, click, wordcount, agree, display, createtime, updatetime
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -29,7 +31,7 @@
   
   <select id="findByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select
-    t1.id, cover, title, type, settop, summary, click, wordcount, createtime, updatetime, typename,
+    t1.id, cover, title, type, settop, summary, click, wordcount, agree, display, createtime, updatetime, typename,
     <include refid="Blob_Column_List" />
     from tbl_daily t1 left join tbl_type t2 on t1.type = t2.id
     where t1.id = #{id,jdbcType=INTEGER}
@@ -53,6 +55,9 @@
     <if test="date != null">
       AND left(createtime, 8) &lt;= #{date,jdbcType=VARCHAR}
     </if>
+    <if test="display != null">
+      AND display = #{display,jdbcType=CHAR}
+    </if>
     LIMIT #{start},#{end}
   </select>
 
@@ -72,8 +77,11 @@
     from tbl_daily order by createtime desc
   </select>
 
-  <select id="getCount" resultType="java.lang.Integer">
+  <select id="getCount" resultType="java.lang.Integer" parameterType="java.lang.String">
     select count(1) from tbl_daily
+    <if test="display != null">
+      where display = #{display}
+    </if>
   </select>
 
   <select id="findNearById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
@@ -112,6 +120,12 @@
       <if test="wordcount != null">
         wordcount,
       </if>
+      <if test="display != null">
+        display,
+      </if>
+      <if test="agree != null">
+        agree,
+      </if>
       <if test="createtime != null">
         createtime,
       </if>
@@ -146,6 +160,12 @@
       </if>
       <if test="wordcount != null">
         #{wordcount,jdbcType=INTEGER},
+      </if>
+      <if test="display != null">
+        #{display,jdbcType=CHAR},
+      </if>
+      <if test="agree != null">
+        #{agree,jdbcType=INTEGER},
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=VARCHAR},
@@ -182,6 +202,12 @@
       </if>
       <if test="wordcount != null">
         wordcount = #{wordcount,jdbcType=INTEGER},
+      </if>
+      <if test="display != null">
+        display = #{display,jdbcType=CHAR},
+      </if>
+      <if test="agreeagree != null">
+        agree = #{agree,jdbcType=INTEGER},
       </if>
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=VARCHAR},

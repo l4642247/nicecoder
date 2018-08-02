@@ -32,9 +32,29 @@ public class TblDaily {
 
     private String contentStr;
 
+    private Integer agree;
+
+    private String display;
+
     private byte[] content;
 
     private String dir;
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public Integer getAgree() {
+        return agree;
+    }
+
+    public void setAgree(Integer agree) {
+        this.agree = agree;
+    }
 
     public String getDir() {
         return dir;

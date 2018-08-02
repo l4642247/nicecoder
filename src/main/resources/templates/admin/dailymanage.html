@@ -23,29 +23,19 @@
 		      		<li class="layui-nav-item">
 			          	<a class="" href="javascript:;">全局监控</a>
 			          	<dl class="layui-nav-child">
-			            	<dd><a href="admin.html">图表显示</a></dd>
+			            	<dd><a href="index.html">图表显示</a></dd>
 			          	</dl>
 			       	</li>
-		      	
-			        <li class="layui-nav-item layui-nav-itemed">
-			          	<a class="" href="javascript:;">所有商品</a>
-			          	<dl class="layui-nav-child">
-			            	<dd class="layui-this"><a href="dailyManage.html">列表一</a></dd>
-			            	<dd><a href="commentManage.html">列表二</a></dd>
-			            	<dd><a href="classifyManage.html">列表二</a></dd>
-			            	<dd><a href="">超链接</a></dd>
-			          	</dl>
-			       	</li>
-			        <li class="layui-nav-item">
-			          	<a href="javascript:;">解决方案</a>
-			          	<dl class="layui-nav-child">
-			          		<dd><a href="javascript:;">列表一</a></dd>
-			            	<dd><a href="javascript:;">列表二</a></dd>
-			            	<dd><a href="">超链接</a></dd>
-			          	</dl>
-			        </li>
-			        <li class="layui-nav-item"><a href="">云市场</a></li>
-			        <li class="layui-nav-item"><a href="">发布商品</a></li>
+
+					<li class="layui-nav-item layui-nav-itemed">
+						<a class="" href="javascript:;">管理文章</a>
+						<dl class="layui-nav-child">
+							<dd><a class="layui-this" href="dailyManage.html">文章管理</a></dd>
+							<dd><a href="classifyManage.html">类别管理</a></dd>
+							<dd><a href="commentManage.html">评论管理</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item"><a href="">新说唱</a></li>
 		      	</ul>
 		    </div>
 	 	</div>
@@ -58,10 +48,10 @@
 	  		<!-- 导航 -->
 	  		<div class="border-bottom">
 				<ul class="layui-nav" style="background-color:#fff; margin-left:-20px;">
-			      	<li class="layui-nav-item layui-this"><a href="" style="color:#000">全部(8)</a>
-			      	<li class="layui-nav-item"><a href="" style="color:#000">已发布(1)</a>
-			      	<li class="layui-nav-item"><a href="" style="color:#000">草稿箱(1)</a>
-			      	<li class="layui-nav-item"><a href="" style="color:#000">回收站(1)</a>
+			      	<li class="layui-nav-item layui-this" th:class="${display == null}? 'layui-nav-item layui-this' : 'layui-nav-item'"><a href="dailyManage.html" style="color:#000" th:text="'全部(' + ${countAll} + ')'">全部(8)</a>
+			      	<li class="layui-nav-item" th:class="${display == '0'}? 'layui-nav-item layui-this' : 'layui-nav-item'"><a href="dailyManage.html?display=0" style="color:#000" th:text="'已发布(' + ${count0} + ')'">已发布(1)</a>
+			      	<li class="layui-nav-item" th:class="${display == '1'}? 'layui-nav-item layui-this' : 'layui-nav-item'"><a href="dailyManage.html?display=1" style="color:#000" th:text="'草稿箱(' + ${count1} + ')'">草稿箱(1)</a>
+			      	<li th:class="${display == '2'}? 'layui-nav-item layui-this' : 'layui-nav-item'"><a href="dailyManage.html?display=2" style="color:#000" th:text="'回收站(' + ${count2} + ')'">回收站(1)</a>
 			    </ul>
 		    </div>
 		    
@@ -145,7 +135,7 @@
 			//完整功能
 			laypage.render({
 				elem: 'page'
-				,count: 100
+				,count: [[${count}]]
 				,layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip']
 				,jump: function(obj){
 					console.log(obj)

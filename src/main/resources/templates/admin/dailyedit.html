@@ -47,29 +47,19 @@
 		      		<li class="layui-nav-item">
 			          	<a class="" href="javascript:;">全局监控</a>
 			          	<dl class="layui-nav-child">
-			            	<dd><a href="admin.html">图表显示</a></dd>
+			            	<dd><a href="index.html">图表显示</a></dd>
 			          	</dl>
 			       	</li>
-		      	
-			        <li class="layui-nav-item layui-nav-itemed">
-			          	<a class="" href="javascript:;">所有商品</a>
-			          	<dl class="layui-nav-child">
-			            	<dd class="layui-this"><a href="dailyManage.html">列表一</a></dd>
-			            	<dd><a href="javascript:;">列表二</a></dd>
-			            	<dd><a href="classifyManage.html">列表三</a></dd>
-			            	<dd><a href="">超链接</a></dd>
-			          	</dl>
-			       	</li>
-			        <li class="layui-nav-item">
-			          	<a href="javascript:;">解决方案</a>
-			          	<dl class="layui-nav-child">
-			          		<dd><a href="javascript:;">列表一</a></dd>
-			            	<dd><a href="javascript:;">列表二</a></dd>
-			            	<dd><a href="">超链接</a></dd>
-			          	</dl>
-			        </li>
-			        <li class="layui-nav-item"><a href="">云市场</a></li>
-			        <li class="layui-nav-item"><a href="">发布商品</a></li>
+
+					<li class="layui-nav-item">
+						<a class="" href="javascript:;">管理文章</a>
+						<dl class="layui-nav-child">
+							<dd><a href="dailyManage.html">文章管理</a></dd>
+							<dd><a href="classifyManage.html">类别管理</a></dd>
+							<dd><a href="commentManage.html">评论管理</a></dd>
+						</dl>
+					</li>
+					<li class="layui-nav-item"><a href="">新说唱</a></li>
 		      	</ul>
 		    </div>
 	 	</div>
@@ -110,11 +100,7 @@
 						<div class="layui-form-item dailyType">
 							<select name="type" lay-verify="required">
 								<option value="">请选择一个分类</option>
-								<option value="1">学无止境</option>
-								<option value="2">慢生活</option>
-								<option value="3">健身日记</option>
-								<option value="4">吉他慢慢</option>
-								<option value="5">英语流利说</option>
+								<option value="1" th:each="tblType : ${tblTypes}" th:text="${tblType.typename}" th:value="${tblType.id}">学无止境</option>
 							</select>
 						</div>    
 					</div>
@@ -122,7 +108,7 @@
 				
 				<div class="top-15">
 					<button class="layui-btn" type="submit" lay-submit lay-filter="dailySubmit">发布文章</button>
-					<button class="layui-btn" type="button">保存草稿</button>
+					<button class="layui-btn" type="button" onclick="save()">保存草稿</button>
 					<button class="layui-btn layui-btn-primary" type="button">返回</button>
 				</div>
 			</form>
@@ -186,6 +172,17 @@
 		
 		var cls = new Tag("classValue");
 		cls.initView();
+
+		//保存草稿
+        function save(){
+			var title = $("input[name='title']").val();
+            var content = editor.getValue();
+            var cover = $("input[name='cover']").val();
+            var tag = $("input[name='title']").val();
+            var type = $("select[name='type']").val();
+
+            console.log(title + "  " + content + "  " + cover + "  " + tag + "  " + type);
+		}
 		
 		
 	</script>
