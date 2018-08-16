@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class ManagerController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 

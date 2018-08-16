@@ -1,7 +1,11 @@
+http:
+  port: 8444
+
 server:
-  port: 8080
-  servlet:
-    context-path: /nicecoder
+  port: 8443
+  ssl:
+    key-store: 214903149810271.pfx
+    key-store-password: 214903149810271
 
 spring:
   # DataSource

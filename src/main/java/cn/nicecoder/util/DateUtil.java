@@ -530,7 +530,7 @@ public class DateUtil {
 
     /**
      * 获取两个日期之间的日期
-     * @param date
+     * @param
      * @return
      */
     public static final List<String> getBetweenDateDate(String startDate,String endDate) {
@@ -584,9 +584,22 @@ public class DateUtil {
         return result == 0 ? 1 : Math.abs(result);
     	
     }
-    
-    public static void main(String[] args) {
-      System.out.println(getBetweenDateDate("20170227","20170229"));
+
+	public static int daysBetween(String dateStr,Date date2)
+	{
+		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+		Date date1 = null;
+		try {
+			date1 = format.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		int days = (int) ((date2.getTime() - date1.getTime()) / (1000*3600*24));
+		return days;
+	}
+
+	public static void main(String[] args) {
+      System.out.println(daysBetween("20180804", DateUtil.getCurrentDate()));
     	
 	}
 }

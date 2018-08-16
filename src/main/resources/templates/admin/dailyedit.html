@@ -36,7 +36,7 @@
 </style>
 <body class="layui-layout-body">
 	<!-- 公共头 -->
-	<div th:replace="~{fragments/header :: header}"></div>
+	<div th:replace="~{fragments/back/header :: header}"></div>
 	
 	<div class="layui-layout layui-layout-admin">
 	
@@ -116,7 +116,7 @@
 		
 	</div>
 	<!-- 公共的脚 -->
-	<div th:replace="~{fragments/footer :: footer}"></div>
+	<div th:replace="~{fragments/back/footer :: footer}"></div>
     <script src="../simditor/module.js" th:src="@{/simditor/module.js}"></script>
     <script src="../simditor/hotkeys.js" th:src="@{/simditor/hotkeys.js}"></script>
     <script src="../simditor/uploader.js" th:src="@{/simditor/uploader.js}"></script>
@@ -139,7 +139,7 @@
 			//创建一个上传组件
 			upload.render({
 				elem: '#coverUpload'
-				,url: 'http://nicecoder.cn/imageupload/imageUpload'
+				,url: 'http://nicecoder.cn:8082/imageupload/imageUpload'
 				,done: function(res, index, upload){ //上传后的回
 					layer.msg('上传成功！'); 
 					$("input[name='cover']").val(res.data.src);
@@ -151,7 +151,7 @@
 		var editor = new Simditor({ 
 		  	textarea: $('#editor'),
 		  	upload:{
-		  	    url: "http://nicecoder.cn/imageupload/imageUpload",
+		  	    url: "http://nicecoder.cn:8082/imageupload/imageUpload",
 		  	    params: null,
 		  	    fileKey: 'upload_file',
 		  	    connectionCount: 3,

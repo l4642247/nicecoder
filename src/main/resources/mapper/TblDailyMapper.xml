@@ -84,6 +84,10 @@
     </if>
   </select>
 
+  <select id="getWordCountSum" resultType="java.lang.Integer">
+    select sum(wordcount) from tbl_daily where display = '0'
+  </select>
+
   <select id="findNearById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     (SELECT *,0 as dir FROM tbl_daily WHERE id &lt; #{id,jdbcType=INTEGER} ORDER BY id DESC LIMIT 1) UNION ALL (SELECT *,1 as dir FROM tbl_daily WHERE id &gt; #{id,jdbcType=INTEGER} LIMIT 1)
   </select>

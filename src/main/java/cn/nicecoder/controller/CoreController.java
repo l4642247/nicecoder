@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class CoreController {
@@ -40,7 +37,7 @@ public class CoreController {
     }
 
     @GetMapping(value = {"/index.html", "/detail/index.html"})
-    public ModelAndView index(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "10") Integer count
+    public ModelAndView index(@RequestParam(value="page" ,required = false, defaultValue = "0") Integer page, @RequestParam(value="count" ,required = false, defaultValue = "20") Integer count
             , @RequestParam(value="date" ,required = false) String date, @RequestParam(value="type" ,required = false)  String type, @RequestParam(value="tag" ,required = false)  String tag
             , @RequestParam(value="keyword" ,required = false)  String keyword){
         HashMap queryMap = new HashMap();
@@ -57,6 +54,8 @@ public class CoreController {
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("tblDailys",tblDailys);
         mv.addObject("tblTypes",tblTypes);
+        mv.addObject("dailyList", tblDailyMapper.selectHotEight());
+        mv.addObject("typeList", tblTypeMapper.selectFirstFive());
         return mv;
     }
 
@@ -91,31 +90,19 @@ public class CoreController {
         mv.addObject("tblTypes",tblTypes);
         mv.addObject("tblTags",tblTags);
         mv.addObject("allTag",allTag);
+        mv.addObject("dailyList", tblDailyMapper.selectHotEight());
+        mv.addObject("typeList", tblTypeMapper.selectFirstFive());
         return mv;
     }
 
-    /**
-     * 查询前八条热门信息
-     * @return
-     */
-    @RequestMapping(value = {"/getDailyHotShow", "/detail/getDailyHotShow"}, method = RequestMethod.GET)
-    @ResponseBody
-    public String getDailyHotShow(){
-        JSONObject result = new JSONObject();
-        result.put("dailyList", tblDailyMapper.selectHotEight());
-        return result.toString();
-    }
-
-    /**
-     * 查询前五条类别信息
-     * @return
-     */
-    @RequestMapping(value = {"/getTypeShow", "/detail/getTypeShow"}, method = RequestMethod.GET)
-    @ResponseBody
-    public String getTypeShow(){
-        JSONObject result = new JSONObject();
-        result.put("typeList", tblTypeMapper.selectFirstFive());
-        return result.toString();
+    @GetMapping(value = {"/about.html", "/detail/about.html"})
+    public ModelAndView about(){
+        List<TblType> tblTypes = tblTypeMapper.findAll();
+        ModelAndView mv = new ModelAndView("about");
+        mv.addObject("typeList", tblTypeMapper.selectFirstFive());
+        mv.addObject("wordCount", tblDailyMapper.getWordCountSum());
+        mv.addObject("dayBetween", DateUtil.daysBetween("20180808", DateUtil.getCurrentDate()));
+        return mv;
     }
 
 }

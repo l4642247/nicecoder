@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>我的日常</title>
 <body>
-    <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/back/header :: header}"></div>
 
     <form action="login" method="post">
         <input type="text" name="usernmame"/>
@@ -12,6 +12,6 @@
         <input type="submit" value="登陆">
     </form>
 
-    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:replace="~{fragments/back/footer :: footer}"></div>
 </body>
 </html>
