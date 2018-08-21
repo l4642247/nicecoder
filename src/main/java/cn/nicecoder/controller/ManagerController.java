@@ -163,7 +163,7 @@ public class ManagerController {
         //分类管理
         tblTypeMapper.increase(Integer.parseInt(type));
 
-        return "dailyedit";
+        return "redirect:dailyManage.html";
     }
 
 

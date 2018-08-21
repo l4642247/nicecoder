@@ -139,7 +139,7 @@
 			//创建一个上传组件
 			upload.render({
 				elem: '#coverUpload'
-				,url: 'http://nicecoder.cn:8082/imageupload/imageUpload'
+				,url: 'http://139.224.131.174:8082/imageupload/imageUpload'
 				,done: function(res, index, upload){ //上传后的回
 					layer.msg('上传成功！'); 
 					$("input[name='cover']").val(res.data.src);
@@ -151,7 +151,7 @@
 		var editor = new Simditor({ 
 		  	textarea: $('#editor'),
 		  	upload:{
-		  	    url: "http://nicecoder.cn:8082/imageupload/imageUpload",
+		  	    url: "http://139.224.131.174:8082/imageupload/imageUpload",
 		  	    params: null,
 		  	    fileKey: 'upload_file',
 		  	    connectionCount: 3,

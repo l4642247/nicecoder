@@ -84,7 +84,7 @@
     </if>
   </select>
 
-  <select id="getWordCountSum" resultType="java.lang.Integer">
+  <select id="getWordCountSum" resultType="java.lang.String">
     select sum(wordcount) from tbl_daily where display = '0'
   </select>
 

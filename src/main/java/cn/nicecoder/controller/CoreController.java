@@ -100,7 +100,7 @@ public class CoreController {
         List<TblType> tblTypes = tblTypeMapper.findAll();
         ModelAndView mv = new ModelAndView("about");
         mv.addObject("typeList", tblTypeMapper.selectFirstFive());
-        mv.addObject("wordCount", tblDailyMapper.getWordCountSum());
+        mv.addObject("wordCount", tblDailyMapper.getWordCountSum() == null ? "0" :tblDailyMapper.getWordCountSum());
         mv.addObject("dayBetween", DateUtil.daysBetween("20180808", DateUtil.getCurrentDate()));
         return mv;
     }
