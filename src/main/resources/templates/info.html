@@ -2,7 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:replace="~{fragments/front/header :: header}"></div>
-
+<style>
+  .news_content p {
+    padding: 10px 0;
+  }
+  .news_content img{
+    max-width:762px;
+    overflow:hidden;
+  }
+</style>
 <body>
 <header class="header-navigation" id="header">
   <nav><div class="logo"><a href="index.html">我想和你玩</a></div>
@@ -19,9 +27,9 @@
 <article>
   <aside class="l_box">
     <div class="search">
-      <form action="../index.html" method="get" name="searchform" id="searchform">
-        <input name="keyword" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-        <input name="Submit" class="input_submit" value="搜索" type="submit">
+      <form action="index.html" method="get" name="searchform" id="searchform">
+        <input name="keyword" id="keyboard" class="input_text" placeholder="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+        <input class="input_submit" value="搜索" type="submit">
       </form>
     </div>
     <div class="fenlei">
@@ -45,7 +53,7 @@
     <div class="guanzhu">
       <h2>关注我 么么哒</h2>
       <ul>
-        <img src="../images/wx.jpg">
+        <img src="../images/wx.jpg" th:src="@{/images/wx.jpg}">
       </ul>
     </div>
   </aside>
@@ -63,7 +71,7 @@
         </div>
         <div class="tags"><a th:each="tblTag : ${tblTags}" th:text="${tblTag.tagname}" href="/" th:href="${'../index.html?tag=' + tblTag.id}">个人博客</a> &nbsp;</div>
         <div class="news_about"><strong>简介</strong>个人博客，用来记录一下生活。</div>
-        <div class="news_con" th:utext="${tblDaily.contentStr}"></div>
+        <div class="news_content" th:utext="${tblDaily.contentStr}" style="color:#666; letter-spacing:2px; font-size:15px; line-height:30px; font-family:'微软雅黑';"></div>
         <div class="share">
           <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)</p>
         </div>

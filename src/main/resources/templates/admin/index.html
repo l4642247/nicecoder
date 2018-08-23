@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-<meta charset="UTF-8">
-<title>管理玩意</title>
-</head>
-<style type="text/css">
-</style>
+<!-- 公共头 -->
+<div th:replace="~{fragments/back/header :: header}"></div>
+
 <body class="layui-layout-body">
-	<!-- 公共头 -->
-	<div th:replace="~{fragments/back/header :: header}"></div>
-	
+
 	<div class="layui-layout layui-layout-admin">
 	
 	  	<div class="layui-side layui-bg-black">
