@@ -1,7 +1,15 @@
 @charset "gb2312";
+@media screen and (min-width: 1199px) {
+ /*mycss*/
+ .gbko input{ width: 32%; float: left; margin-left: 2%;}
+}
+
 @media screen and (min-width: 1024px) and (max-width: 1199px) {
 header { width: 96%; margin: auto }
+ /*mycss*/
+ .gbko input{ width: 32%; float: left; margin-left: 2%;}
 }
+
 @media screen and (min-width: 960px) and (max-width: 1023px) {
 header { width: 96%; margin: auto }
 article { width: 96% }
@@ -9,7 +17,10 @@ nav { width: 96%; }
 #starlist li { padding-left: 20px }
 .picshowlist { display: none }
 .tuijian, .guanzhu { width: 270px; }
+ /*mycss*/
+ .gbko input{ width: 32%; float: left; margin-left: 2%;}
 }
+
 @media screen and (min-width: 768px) and (max-width: 959px) {
 header { width: 96%; margin: auto }
 article { width: 96% }
@@ -18,7 +29,10 @@ nav { width: 96%; }
 .picbox ul { width: 23%; }
 .picshowlist { display: none }
 .pagelist a { padding: 2px 3px; }
+ /*mycss*/
+ .gbko input{ width: 32%; float: left; margin-left: 2%;}
 }
+
  @media only screen and (min-width: 480px) and (max-width: 767px) {
 header { width: 96%; margin: auto }
 article { width: 96% }
@@ -36,7 +50,10 @@ nav { width: 100%; position: relative }
 .picinfo { display: none }
 .picshowlist { display: none }
 .lmname, .view { display: none }
+  /*mycss*/
+  .gbko input{ width: 32%; float: left; margin-left: 2%;}
 }
+
 @media only screen and (max-width: 479px) {
 header { width: 96%; margin: auto }
 article { width: 100% }
@@ -59,4 +76,6 @@ nav { width: 100%; position: relative }
 .lmname, .view { display: none }
 .r_box li i { float: none; margin: 0 auto 20px; width: 100%; max-height: initial }
 .newsview { padding: 0 15px; }
+ /*mycss*/
+ .gbko input{ margin-left:0px; width: 100%; margin-top:5px; margin-left: 0;}
 }

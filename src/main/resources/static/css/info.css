@@ -12,3 +12,11 @@
 .news_about strong { color: #38485A; font-weight: 400 !important; font-size: 13px; padding-right: 8px; }
 .news_content { line-height: 24px; font-size: 14px; }
 .news_content p { overflow: hidden; padding-bottom: 4px; padding-top: 6px; word-wrap: break-word; }
+
+.gbko { margin-top: 50px;}
+.layui-form {margin-top: 20px;}
+.dis-item {}
+.user-image {width: 10%; float: left;}
+.user-image img{width: 40px; height:40px;}
+.dis-content {width: 90%; float: left;}
+

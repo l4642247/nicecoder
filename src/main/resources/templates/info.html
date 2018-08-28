@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div th:replace="~{fragments/front/header :: header}"></div>
+<head>
+  <link href="css/info.css" th:href="@{/css/info.css}" rel="stylesheet">
+  <link href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" rel="stylesheet">
+</head>
 <style>
   .news_content p {
     padding: 10px 0;
@@ -80,18 +84,71 @@
           <p><label th:if="${nextDaily != null}">下一篇：</label><label th:if="${nextDaily == null}">没有更多了</label><a th:if="${nextDaily != null}" th:href="${'art_' + nextDaily.id + '.html'}" href="/news/life/" th:text="${nextDaily.title}">返回列表</a></p>
         </div>
         <div class="news_pl">
-          <h2>文章评论</h2>
+          <h2><i class="layui-icon" style="font-size: 15px; color: #20B2AA;">&#xe642;</i>文章评论</h2>
           <ul>
-            <div class="gbko"> 暂未开放！</div>
+            <div class="discontent">
+              <p>724 thoughts on “留言板”</p>
+
+              <div class="dis-item">
+                <div class="user-image">
+                  <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
+                  <p class="name">p</p>
+                  <div class="user-line"></div>
+                </div>
+                <div class="dis-content">
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+                  刚刚开通博客，测试一下留言板的效果~<br>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="gbko">
+              <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦....</p>
+              <form class="layui-form" action="">
+                <div class="layui-form-item">
+                  <input type="text" style="margin-left: 0;" name="name"  lay-verify="required" autocomplete="off" class="layui-input" placeholder="昵称：">
+                  <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="邮箱：">
+                  <input type="text" name="website" autocomplete="off" class="layui-input" placeholder="网址：">
+                </div>
+                <div class="layui-form-item layui-form-text" style="margin-top:10px;">
+                  <textarea id="discuss" name="discuss" style="display: none;"></textarea>
+                </div>
+                <button style="float:right;" id="dis-btn" class="layui-btn layui-btn-primary" onclick="">提交</button>
+              </form>
+            </div>
           </ul>
         </div>
     </div>
   </main>
 </article>
+<a href="#" class="cd-top">Top</a>
 
 <div th:replace="~{fragments/front/footer :: footer}"></div>
-<a href="#" class="cd-top">Top</a>
+<script src="layui/layui.js" th:src="@{/layui/layui.js}" type="text/javascript"></script>
 <script>
+    var layedit;
+    var index;
+    $(function(){
+        //编辑器部分
+        layui.use('layedit', function(){
+            layedit = layui.layedit;
+            //创建富文本
+            index = layedit.build('discuss',{
+                tool: ['link', 'unlink', '|', 'face'],
+                height: 100,
+                width: 720
+            });
+        });
+    });
+
     $(function(){
     })
 </script>
