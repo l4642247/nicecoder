@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.nicecoder.mapper.TblAgreeMapper" >
+  <resultMap id="BaseResultMap" type="TblAgree" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="agreeid" property="agreeid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="pudate" property="pudate" jdbcType="VARCHAR" />
+    <result column="ob1" property="ob1" jdbcType="VARCHAR" />
+    <result column="ob2" property="ob2" jdbcType="VARCHAR" />
+    <result column="ob3" property="ob3" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type, agreeid, userid, pudate, ob1, ob2, ob3
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_agree
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from tbl_agree
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="TblAgree" >
+    insert into tbl_agree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="agreeid != null" >
+        agreeid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="pudate != null" >
+        pudate,
+      </if>
+      <if test="ob1 != null" >
+        ob1,
+      </if>
+      <if test="ob2 != null" >
+        ob2,
+      </if>
+      <if test="ob3 != null" >
+        ob3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeid != null" >
+        #{agreeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="pudate != null" >
+        #{pudate,jdbcType=VARCHAR},
+      </if>
+      <if test="ob1 != null" >
+        #{ob1,jdbcType=VARCHAR},
+      </if>
+      <if test="ob2 != null" >
+        #{ob2,jdbcType=VARCHAR},
+      </if>
+      <if test="ob3 != null" >
+        #{ob3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="TblAgree" >
+    update tbl_agree
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="agreeid != null" >
+        agreeid = #{agreeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="pudate != null" >
+        pudate = #{pudate,jdbcType=VARCHAR},
+      </if>
+      <if test="ob1 != null" >
+        ob1 = #{ob1,jdbcType=VARCHAR},
+      </if>
+      <if test="ob2 != null" >
+        ob2 = #{ob2,jdbcType=VARCHAR},
+      </if>
+      <if test="ob3 != null" >
+        ob3 = #{ob3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

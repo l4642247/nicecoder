@@ -74,7 +74,7 @@
           </ul>
         </div>
         <div class="tags"><a th:each="tblTag : ${tblTags}" th:text="${tblTag.tagname}" href="/" th:href="${'../index.html?tag=' + tblTag.id}">个人博客</a> &nbsp;</div>
-        <div class="news_about"><strong>简介</strong>个人博客，用来记录一下生活。</div>
+        <div class="news_about"><strong>摘要</strong><span th:text="${tblDaily.summary}">个人博客，用来记录一下生活。</span></div>
         <div class="news_content" th:utext="${tblDaily.contentStr}" style="color:#666; letter-spacing:2px; font-size:15px; line-height:30px; font-family:'微软雅黑';"></div>
         <div class="share">
           <p class="diggit"><a href="JavaScript:makeRequest('/e/public/digg/?classid=3&amp;id=19&amp;dotop=1&amp;doajax=1&amp;ajaxarea=diggnum','EchoReturnedText','GET','');"> 很赞哦！ </a>(<b id="diggnum"><script type="text/javascript" src="/e/public/ViewClick/?classid=2&id=20&down=5"></script>13</b>)</p>
@@ -87,29 +87,94 @@
           <h2><i class="layui-icon" style="font-size: 15px; color: #20B2AA;">&#xe642;</i>文章评论</h2>
           <ul>
             <div class="discontent">
-              <p>724 thoughts on “留言板”</p>
+              <p class="comment-num"><i class="layui-icon layui-icon-reply-fill" style="font-size: 30px;"></i>  724 thoughts on “留言板”</p>
 
               <div class="dis-item">
                 <div class="user-image">
                   <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
-                  <p class="name">p</p>
-                  <div class="user-line"></div>
+                  <a href="#" class="reply">回复</a>
                 </div>
                 <div class="dis-content">
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-                  刚刚开通博客，测试一下留言板的效果~<br>
-
+                    <div class="content-info">
+                      <div class="user-card"><a href="#">社会龙</a>&nbsp;&nbsp;<span>2018/06/27 17:45 </span></div>
+                      <div class="user-say">
+                        刚刚开通博客，测试一下留言板的效果~<br>
+                        刚刚开通博客，测试一下留言板的效果~<br>
+                        刚刚开通博客，测试一下留言板的效果~<br>
+                      </div>
+                    </div>
                 </div>
               </div>
 
+              <div class="dis-item">
+                <div class="user-image">
+                  <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
+                  <a href="#" class="reply">回复</a>
+                </div>
+                <div class="dis-content">
+                  <div class="content-info">
+                    <div class="user-card"><a href="#">社会龙</a>&nbsp;&nbsp;<span>2018/06/27 17:45 </span></div>
+                    <div class="user-say">
+                      社会我龙哥，人狠话不多<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dis-item">
+                <div class="user-image">
+                  <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
+                  <a href="#" class="reply">回复</a>
+                </div>
+                <div class="dis-content">
+                  <div class="content-info">
+                    <div class="user-card"><a href="#">社会龙</a>&nbsp;&nbsp;<span>2018/06/27 17:45 </span></div>
+                    <div class="user-say">
+                      社会我龙哥，醉酒还开车。<br>
+                      宝马载小弟，怀中抱大波。<br>
+                      威风吓路人，四轮怼电车。<br>
+                      下车动拳脚，发现打不过。<br>
+                      转身去提刀，挥砍多婀娜。<br>
+                      谁料手抖擞，刀落反被抢。<br>
+                      装逼被反杀，小弟急逃忙。<br>
+                      虎颈花臂染，肚外遛肥肠。<br>
+                      龙哥遇何人，保安大队长。<br>
+                      事发众人知，网友调侃忙。<br>
+                      大虫一命丧，路人灾难挡。<br>
+                      更有律师言，杀人命该偿。<br>
+                      遥记碰瓷案，车主反赔偿。<br>
+                      坏老各作案，法律帮倒忙。<br>
+                      风气一时正，摔倒不敢帮。<br>
+                      曾有一小伙，车站病发慌。<br>
+                      手举百元钞，无人问冷凉。<br>
+                      国泰且安康，道德病怏怏。<br>
+                      街上行尸肉，愚民无信仰。<br>
+                      浮躁少文化，生活多迷茫。<br>
+                      小学做主播，低俗来钱爽。<br>
+                      辛苦干实业，可怜住无房。<br>
+                      烈日艳灼人，蓝天绿水长。<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="dis-item">
+                <div class="user-image">
+                  <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
+                  <a href="#" class="reply">回复</a>
+                </div>
+                <div class="dis-content">
+                  <div class="content-info">
+                    <div class="user-card"><a href="#">社会龙</a>&nbsp;&nbsp;<span>2018/06/27 17:45 </span></div>
+                    <div class="user-say">
+                      社会我龙哥，人狠话不多<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+
             <div class="gbko">
               <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦....</p>
               <form class="layui-form" action="">

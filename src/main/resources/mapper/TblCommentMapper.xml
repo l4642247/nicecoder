@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.nicecoder.mapper.TblCommentMapper" >
+  <resultMap id="BaseResultMap" type="TblComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="discussid" property="discussid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="pudate" property="pudate" jdbcType="VARCHAR" />
+    <result column="agree" property="agree" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="ob1" property="ob1" jdbcType="VARCHAR" />
+    <result column="ob2" property="ob2" jdbcType="VARCHAR" />
+    <result column="ob3" property="ob3" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="TblComment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARBINARY" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, type, discussid, userid, pudate, agree, status, ob1, ob2, ob3
+  </sql>
+
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from tbl_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="TblComment" >
+    insert into tbl_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="discussid != null" >
+        discussid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="pudate != null" >
+        pudate,
+      </if>
+      <if test="agree != null" >
+        agree,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="ob1 != null" >
+        ob1,
+      </if>
+      <if test="ob2 != null" >
+        ob2,
+      </if>
+      <if test="ob3 != null" >
+        ob3,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="discussid != null" >
+        #{discussid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="pudate != null" >
+        #{pudate,jdbcType=VARCHAR},
+      </if>
+      <if test="agree != null" >
+        #{agree,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="ob1 != null" >
+        #{ob1,jdbcType=VARCHAR},
+      </if>
+      <if test="ob2 != null" >
+        #{ob2,jdbcType=VARCHAR},
+      </if>
+      <if test="ob3 != null" >
+        #{ob3,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="TblComment" >
+    update tbl_comment
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="discussid != null" >
+        discussid = #{discussid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="pudate != null" >
+        pudate = #{pudate,jdbcType=VARCHAR},
+      </if>
+      <if test="agree != null" >
+        agree = #{agree,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="ob1 != null" >
+        ob1 = #{ob1,jdbcType=VARCHAR},
+      </if>
+      <if test="ob2 != null" >
+        ob2 = #{ob2,jdbcType=VARCHAR},
+      </if>
+      <if test="ob3 != null" >
+        ob3 = #{ob3,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

@@ -13,10 +13,16 @@
 .news_content { line-height: 24px; font-size: 14px; }
 .news_content p { overflow: hidden; padding-bottom: 4px; padding-top: 6px; word-wrap: break-word; }
 
-.gbko { margin-top: 50px;}
+.gbko { margin-top: 100px;}
+.comment-num{ margin-top:40px;font-weight: bold; color: #666; font-size: 16px;}
 .layui-form {margin-top: 20px;}
-.dis-item {}
-.user-image {width: 10%; float: left;}
+.dis-item { overflow: hidden;}
+.user-image {width: 10%; min-width:60px; float: left;}
 .user-image img{width: 40px; height:40px;}
-.dis-content {width: 90%; float: left;}
+.dis-content {width: 80%; float: left; padding: 5px 5px 5px 20px; border-left: solid #bbbbbb 2px; position: relative; border-radius: 3px;}
+.dis-content .content-info:after,.dis-content .content-info:before {content: ""; border: solid 10px transparent;border-left: none;border-right-color: #bbbbbb;position: absolute;left: -10px;top: 10px;}
+.dis-content .content-info:after {border-right-color: #fff; left: -8px;}
 
+.dis-item{margin-top: 40px;}
+.reply{display: block; margin-top:10px; color: #666; margin-left: 5px;}
+.user-say{margin-top:10px;}
