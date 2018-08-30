@@ -10,6 +10,7 @@ import cn.nicecoder.mapper.TblTagMapper;
 import cn.nicecoder.mapper.TblTypeMapper;
 import cn.nicecoder.util.DateUtil;
 import cn.nicecoder.util.StringUtil;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,7 +136,7 @@ public class ManagerController {
         //添加摘要和字数
         content = StringUtil.delHtmlTag(content);
         tblDaily.setWordcount(content.length());
-        //tblDaily.setSummary(content.length() < 100 ? content : content.substring(100));
+        tblDaily.setSummary(content.length() < 100 ? content : content.substring(100));
         tblDailyMapper.insert(tblDaily);
 
         //标签管理
@@ -162,10 +163,26 @@ public class ManagerController {
 
         //分类管理
         tblTypeMapper.increase(Integer.parseInt(type));
-
         return "redirect:dailyManage.html";
     }
 
+    /**
+     * 删除操作
+     * @return
+     */
+    @GetMapping("/del/{id}")
+    @ResponseBody
+    public String del(@PathVariable(value="id") Integer id){
+        JSONObject result = new JSONObject();
+        result.put("code", "0");
+        result.put("desc", "success");
 
+        int count = tblDailyMapper.updateDisplay(id);
+        if(count != 1){
+            result.put("code", "1");
+            result.put("desc", "fail");
+        }
+        return result.toJSONString();
+    }
 
 }

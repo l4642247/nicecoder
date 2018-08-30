@@ -17,4 +17,5 @@ public interface TblDailyMapper {
     List<TblDaily> findNearById(int id);
     int getCount(@Param("display") String display);
     String getWordCountSum();
+    int updateDisplay(int id);
 }

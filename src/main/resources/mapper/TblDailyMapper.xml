@@ -182,6 +182,11 @@
       </if>
     </trim>
   </insert>
+
+  <update id="updateDisplay" parameterType="java.lang.Integer">
+    update tbl_daily set display = '2'
+    where id = #{id,jdbcType=INTEGER}
+  </update>
   
   <update id="update" parameterType="TblDaily">
     update tbl_daily
