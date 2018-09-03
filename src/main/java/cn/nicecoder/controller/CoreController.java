@@ -49,6 +49,7 @@ public class CoreController {
         queryMap.put("type", type);
         queryMap.put("keyword", keyword);
         queryMap.put("tag", tag);
+        queryMap.put("display", "0");
         List<TblDaily> tblDailys = tblDailyMapper.findAllByCondition(queryMap);
         List<TblType> tblTypes = tblTypeMapper.findAll();
         ModelAndView mv = new ModelAndView("index");

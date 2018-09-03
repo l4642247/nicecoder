@@ -2,10 +2,11 @@ package cn.nicecoder;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication
+@SpringBootApplication(exclude= ErrorMvcAutoConfiguration.class, scanBasePackages="cn.nicecoder.controller")
 public class NicecoderApplication extends SpringBootServletInitializer {
 
 	@Override

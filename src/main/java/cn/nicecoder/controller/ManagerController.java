@@ -46,7 +46,8 @@ public class ManagerController {
 
     @GetMapping("/login.html")
     public String login(){
-        return "admin/login";
+        System.out.print("----=---");
+        return "login8888888888";
     }
 
     @GetMapping("/login-error.html")

@@ -163,13 +163,14 @@
 
 		//删除一条记录
 		function del(id){
-			layer.confirm('确定删除？', {icon:3, title:'提示'}, function(index){
+			layer.confirm('确定投入垃圾箱？', {icon:3, title:'提示'}, function(index){
 				$.ajax({
 					url: 'del/' + id,
 					dataType: 'json',
 					method: 'get',
 					success: function(data){
-						alert(data)
+                        layer.msg('投入垃圾箱成功！');
+                        this.parent().remove();
 					}
 				})
 				layer.close(index);
