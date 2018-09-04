@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:fragment="commonHeader(title)">
+        <meta charset="utf-8">
+        <title th:text="${title}"></title>
+        <meta name="keywords" content="个人博客,龙甜,龙甜的个人博客" />
+        <meta name="description" content="..." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="images/favicon.ico" th:href="@{/images/favicon.ico}"  rel="icon" type="image/x-icon" />
+        <link href="css/base.css" th:href="@{/css/base.css}" rel="stylesheet">
+        <link href="css/index.css" th:href="@{/css/index.css}" rel="stylesheet">
+        <link href="css/m.css" th:href="@{/css/m.css}" rel="stylesheet">
+    </head>
+    <body>
+        <div th:fragment="commonNav">
+            <nav>
+                <div class="logo">
+                    <a href="index.html">我想和你玩</a>
+                </div>
+                <h2 id="mnavh">
+                    <span class="navicon"></span>
+                </h2>
+                <ul id="starlist">
+                    <li><a href="index.html">网站首页</a></li>
+                    <li><a href="#">我的相册</a></li>
+                    <li><a href="#">我的日记</a></li>
+                    <li><a href="about.html">关于我</a></li>
+                    <li><a href="gbook.html">留言</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div th:fragment="commonAboutMe">
+            <h2>关于我</h2>
+            <ul>
+                <i><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></i>
+                <p><b>这里</b>，一个不正经的程序员。</p>
+            </ul>
+        </div>
+
+        <div th:fragment="commonAlbum">
+            <h2>我的相册</h2>
+            <ul>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+                <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
+            </ul>
+        </div>
+
+        <div th:fragment="commonSearch">
+            <form action="index.html" method="get" name="searchform" id="searchform">
+                <input name="keyword" id="keyboard" class="input_text" value="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
+                <input class="input_submit" value="搜索" type="submit">
+            </form>
+        </div>
+
+        <div th:fragment="commonArtClass">
+            <h2>文章分类</h2>
+            <ul>
+                <li th:each="type : ${typeList}"><a href="/" th:href="${'index.html?type=' + type.id}" th:text="${type.typename + '（' + type.count +  '）'}">学无止境（33）</a></li>
+            </ul>
+        </div>
+
+        <div th:fragment="commonRecommand">
+            <h2>站长推荐</h2>
+            <ul>
+                <li th:each="daily : ${dailyList}"><a href="/" th:href="${'art_' + daily.id + '.html'}" th:text="${daily.title}">学无止境（33）</a></li>
+            </ul>
+        </div>
+
+        <div th:fragment="commonTag">
+            <h2>标签云</h2>
+            <ul>
+                <a th:each="tblTag : ${allTag}" th:text="${tblTag.tagname}" href="/" th:href="${'index.html?tag=' + tblTag.id}" >个人博客</a>
+            </ul>
+        </div>
+
+        <div th:fragment="commonLinks">
+            <h2>友情链接</h2>
+            <ul>
+                还没有邻居
+            </ul>
+        </div>
+
+        <div th:fragment="commonFocus">
+            <h2>关注我 么么哒</h2>
+            <ul>
+                <img src="images/wx.jpg" th:src="@{/images/wx.jpg}">
+            </ul>
+        </div>
+
+        <div th:fragment="commonFooter">
+            <footer>
+                <p>Design by <a href="http://www.yangqq.com" target="_blank">LONTIAN的个人博客</a> <a href="/">湘ICP备15006988号-1</a></p>
+            </footer>
+            <script src="js/jquery.min.js" th:src="@{/js/jquery.min.js}" type="text/javascript"></script>
+            <script src="js/comm.js" th:src="@{/js/comm.js}" type="text/javascript"></script>
+            <!--[if lt IE 9]>
+            <script src="js/modernizr.js" th:src="@{/js/modernizr.js}"></script>
+            <![endif]-->
+        </div>
+
+    </body>
+</html>

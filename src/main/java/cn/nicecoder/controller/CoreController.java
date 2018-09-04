@@ -106,4 +106,10 @@ public class CoreController {
         return mv;
     }
 
+    @GetMapping(value = {"/gbook.html", "/detail/gbook.html"})
+    public ModelAndView gbook(){
+        ModelAndView mv = new ModelAndView("gbook");
+        return mv;
+    }
+
 }

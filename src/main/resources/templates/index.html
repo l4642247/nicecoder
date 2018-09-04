@@ -1,71 +1,19 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<div th:replace="~{fragments/front/header :: header}"></div>
 
+<head th:replace="~{fragments/front/common :: commonHeader('主页')}"></head>
 <body>
-<header class="header-navigation" id="header">
-  <nav><div class="logo"><a href="index.html">我想和你玩</a></div>
-    <h2 id="mnavh"><span class="navicon"></span></h2>
-    <ul id="starlist">
-      <li><a href="index.html">网站首页</a></li>
-      <li><a href="#">我的相册</a></li>
-      <li><a href="#">我的日记</a></li>
-      <li><a href="about.html">关于我</a></li>
-      <li><a href="#">留言</a></li>
-    </ul>
-  </nav>
-</header>
+<header class="header-navigation" id="header" th:include="~{fragments/front/common :: commonNav}"></header>
 <article>
   <aside class="l_box">
-    <div class="about_me">
-      <h2>关于我</h2>
-      <ul>
-        <i><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></i>
-        <p><b>这里</b>，一个不正经的程序员。</p>
-      </ul>
-    </div>
-    <div class="wdxc">
-      <h2>我的相册</h2>
-      <ul>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-        <li><a href="/"><img src="images/aha.jpg" th:src="@{/images/aha.jpg}"></a></li>
-      </ul>
-    </div>
-    <div class="search">
-      <form action="index.html" method="get" name="searchform" id="searchform">
-        <input name="keyword" id="keyboard" class="input_text" placeholder="请输入关键字词" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字词'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字词'}" type="text">
-        <input class="input_submit" value="搜索" type="submit">
-      </form>
-    </div>
-    <div class="fenlei">
-      <h2>文章分类</h2>
-      <ul>
-        <li th:each="type : ${typeList}"><a href="/" th:href="${'index.html?type=' + type.id}" th:text="${type.typename + '（' + type.count +  '）'}">学无止境（33）</a></li>
-      </ul>
-    </div>
-    <div class="tuijian">
-      <h2>站长推荐</h2>
-      <ul>
-        <li th:each="daily : ${dailyList}"><a href="/" th:href="${'detail/art_' + daily.id + '.html'}" th:text="${daily.title}">学无止境（33）</a></li>
-      </ul>
-    </div>
-    <div class="links">
-      <h2>友情链接</h2>
-      <ul>
-        还没有邻居
-      </ul>
-    </div>
-    <div class="guanzhu">
-      <h2>关注我 么么哒</h2>
-      <ul>
-        <img src="images/wx.jpg" th:src="@{/images/wx.jpg}">
-      </ul>
-    </div>
+    <div class="about_me" th:include="~{fragments/front/common::commonAboutMe}"></div>
+    <div class="wdxc" th:include="~{fragments/front/common::commonAlbum}"></div>
+    <div class="search" th:include="~{fragments/front/common::commonSearch}"></div>
+    <div class="fenlei" th:include="~{fragments/front/common::commonArtClass}"></div>
+    <div class="tuijian" th:include="~{fragments/front/common::commonRecommand}"></div>
+    <div class="links" th:include="~{fragments/front/common::commonLinks}"></div>
+    <div class="guanzhu" th:include="~{fragments/front/common::commonFocus}"></div>
   </aside>
   <main class="r_box">
     <li th:each="tblDaily : ${tblDailys}"><i><a href="/"><img src="images/1.jpg" th:src="${tblDaily.cover}"></a></i>
@@ -74,7 +22,7 @@
     </li>
   </main>
 </article>
-<div th:replace="~{fragments/front/footer :: footer}"></div>
+<div th:replace="~{fragments/front/common::commonFooter}"></div>
 <a href="#" class="cd-top">Top</a>
 <script>
     $(function(){

@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConf
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@SpringBootApplication(exclude= ErrorMvcAutoConfiguration.class, scanBasePackages="cn.nicecoder.controller")
+@SpringBootApplication
 public class NicecoderApplication extends SpringBootServletInitializer {
 
 	@Override
