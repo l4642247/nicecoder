@@ -1,13 +1,8 @@
 package cn.nicecoder.controller;
 
-import cn.nicecoder.domain.TblDaily;
-import cn.nicecoder.domain.TblTag;
-import cn.nicecoder.domain.TblTagDaily;
-import cn.nicecoder.domain.TblType;
-import cn.nicecoder.mapper.TblDailyMapper;
-import cn.nicecoder.mapper.TblTagDailyMapper;
-import cn.nicecoder.mapper.TblTagMapper;
-import cn.nicecoder.mapper.TblTypeMapper;
+import cn.nicecoder.domain.*;
+import cn.nicecoder.mapper.*;
+import cn.nicecoder.service.CommentServiceImpl;
 import cn.nicecoder.util.DateUtil;
 import cn.nicecoder.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -30,6 +26,12 @@ public class CoreController {
     TblTagDailyMapper tblTagDailyMapper;
     @Autowired
     TblTypeMapper tblTypeMapper;
+    @Autowired
+    TblUserMapper tblUserMapper;
+    @Autowired
+    TblCommentMapper tblCommentMapper;
+    @Autowired
+    CommentServiceImpl commentServiceImpl;
 
     @RequestMapping("/")
     public String root(){
@@ -106,10 +108,54 @@ public class CoreController {
         return mv;
     }
 
-    @GetMapping(value = {"/gbook.html", "/detail/gbook.html"})
+    @GetMapping(value = {"/gbook.html"})
     public ModelAndView gbook(){
         ModelAndView mv = new ModelAndView("gbook");
+        Map queryMap = new HashMap();
+        queryMap.put("type", "0");
+        queryMap.put("status", "1");
+        List<TblComment> tblCommentList = tblCommentMapper.findAll(queryMap);
+        for(TblComment tblComment : tblCommentList){
+            commentServiceImpl.commentListDeal(tblComment);
+            queryMap.put("discussid",tblComment.getId());
+            queryMap.put("type","1");
+            List<TblComment> tblCommentListSub = tblCommentMapper.findAllSub(queryMap);
+            for(TblComment tblCommentSub : tblCommentListSub){
+                commentServiceImpl.commentListDeal(tblCommentSub);
+            }
+            tblComment.setTblCommentList(tblCommentListSub);
+        }
+        mv.addObject("tblCommentList",tblCommentList);
         return mv;
+    }
+
+    @PostMapping("/commentAdd")
+    public String gbookAdd(@RequestParam(value="name") String name, @RequestParam(value="email") String email, @RequestParam(value="website" ,required = false) String website,
+                           @RequestParam(value="discuss")  String discuss, @RequestParam(value="type", required = false)  String type, @RequestParam(value="id" ,required = false)  String id){
+        //查询用户
+        TblUser tblUser = tblUserMapper.selectByEmail(email);
+        int userId = 0;
+        if(tblUser == null){
+            TblUser tu = new TblUser();
+            tu.setEmail(email);
+            tu.setName(name);
+            tu.setWebsite(website);
+            tblUserMapper.insert(tu);
+            userId = tu.getId();
+        }else{
+            userId = tblUser.getId();
+        }
+
+        //插入评论
+        TblComment tc = new TblComment();
+        tc.setType(type == null ? "0" : type);
+        tc.setStatus("1");//未审核
+        tc.setContent(discuss.getBytes());
+        tc.setDiscussid(id);
+        tc.setUserid(userId);
+        tc.setPudate(DateUtil.getCurrentTime24());
+        tblCommentMapper.insert(tc);
+        return "redirect:gbook.html";
     }
 
 }

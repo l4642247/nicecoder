@@ -19,6 +19,13 @@ public class DateUtil {
 	}
 
 	/**
+	 * 转换时间格式"XXXX/XX/XX XX:XX:XX"
+	 */
+	public static String getDateTime(String dateStr){
+		return dateStr.substring(0,4) +"/"+ dateStr.substring(4,6) +"/"+ dateStr.substring(6,8)+" "+ dateStr.substring(8,10) + ":" + dateStr.substring(10,12) + ":" + dateStr.substring(12,14);
+	}
+
+	/**
 	 * 根据一个当前日期和需要添加的月数得到一个卡的有效期（为当前日期加上月后的日期的月的最后一天）
 	 * 
 	 * @param date
@@ -68,7 +75,7 @@ public class DateUtil {
 	}
 	/**
 	 * 根据传入的字符串时间格式成yyyy-MM-dd
-	 * @param date
+	 * @param
 	 * @return
 	 */
 	public static String formatStringTime(String time){

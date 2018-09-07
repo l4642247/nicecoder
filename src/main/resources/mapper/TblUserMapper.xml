@@ -24,12 +24,19 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectByEmail" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
+
   <delete id="delete" parameterType="java.lang.Integer" >
     delete from tbl_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="TblUser" >
+  <insert id="insert" parameterType="TblUser" useGeneratedKeys="true" keyProperty="id">
     insert into tbl_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

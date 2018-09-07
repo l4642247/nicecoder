@@ -1,13 +1,15 @@
 package cn.nicecoder.domain;
 
-public class TblComment {
+import java.util.List;
+
+public class TblComment{
     private Integer id;
 
     private String type;
 
     private String discussid;
 
-    private String userid;
+    private int userid;
 
     private String pudate;
 
@@ -19,9 +21,40 @@ public class TblComment {
 
     private String ob2;
 
-    private String ob3;
+    private int touserid;
 
     private byte[] content;
+
+    //添加
+    List<TblComment> tblCommentList;
+    private String image;
+    private String name;
+    private String toimage;
+    private String toname;
+
+    public List<TblComment> getTblCommentList() {
+        return tblCommentList;
+    }
+
+    public void setTblCommentList(List<TblComment> tblCommentList) {
+        this.tblCommentList = tblCommentList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Integer getId() {
         return id;
@@ -47,11 +80,11 @@ public class TblComment {
         this.discussid = discussid;
     }
 
-    public String getUserid() {
+    public int getUserid() {
         return userid;
     }
 
-    public void setUserid(String userid) {
+    public void setUserid(int userid) {
         this.userid = userid;
     }
 
@@ -95,12 +128,28 @@ public class TblComment {
         this.ob2 = ob2;
     }
 
-    public String getOb3() {
-        return ob3;
+    public int getTouserid() {
+        return touserid;
     }
 
-    public void setOb3(String ob3) {
-        this.ob3 = ob3;
+    public void setTouserid(int touserid) {
+        this.touserid = touserid;
+    }
+
+    public String getToimage() {
+        return toimage;
+    }
+
+    public void setToimage(String toimage) {
+        this.toimage = toimage;
+    }
+
+    public String getToname() {
+        return toname;
+    }
+
+    public void setToname(String toname) {
+        this.toname = toname;
     }
 
     public byte[] getContent() {

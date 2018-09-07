@@ -5,13 +5,17 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="discussid" property="discussid" jdbcType="VARCHAR" />
-    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="pudate" property="pudate" jdbcType="VARCHAR" />
     <result column="agree" property="agree" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="CHAR" />
     <result column="ob1" property="ob1" jdbcType="VARCHAR" />
     <result column="ob2" property="ob2" jdbcType="VARCHAR" />
-    <result column="ob3" property="ob3" jdbcType="VARCHAR" />
+    <result column="touserid" property="touserid" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="toname" property="toname" jdbcType="VARCHAR" />
+    <result column="toimage" property="toimage" jdbcType="VARCHAR" />
   </resultMap>
 
   <resultMap id="ResultMapWithBLOBs" type="TblComment" extends="BaseResultMap" >
@@ -19,7 +23,7 @@
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, type, discussid, userid, pudate, agree, status, ob1, ob2, ob3
+    id, type, discussid, userid, pudate, agree, status, ob1, ob2, touserid
   </sql>
 
   <sql id="Blob_Column_List" >
@@ -33,6 +37,64 @@
     <include refid="Blob_Column_List" />
     from tbl_comment
     where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="findAll" resultMap="ResultMapWithBLOBs" parameterType="map" >
+    select
+    a.id, type, discussid, userid, pudate, agree, status, a.ob1, a.ob2, a.touserid
+    ,
+    <include refid="Blob_Column_List" />
+    ,image, name
+    from tbl_comment a  left join tbl_user b on a.userid = b.id
+    where 1=1
+    <if test="type != null" >
+      and a.type = #{type,jdbcType=VARCHAR}
+    </if>
+    <if test="discussid != null" >
+      and a.discussid = #{discussid,jdbcType=VARCHAR}
+    </if>
+    <if test="userid != null" >
+      and a.userid = #{userid,jdbcType=INTEGER}
+    </if>
+    <if test="pudate != null" >
+      and  a.pudate = #{pudate,jdbcType=VARCHAR}
+    </if>
+    <if test="agree != null" >
+      and  a.agree = #{agree,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null" >
+      and a.status = #{status,jdbcType=CHAR}
+    </if>
+  </select>
+
+  <select id="findAllSub" resultMap="ResultMapWithBLOBs" parameterType="map" >
+    select c.*, d.image as toimage, d.name as tomane from (
+        select
+        a.id, type, discussid, userid, pudate, agree, status, a.ob1, a.ob2, a.touserid
+        ,
+        <include refid="Blob_Column_List" />
+        ,image, name
+        from tbl_comment a  left join tbl_user b on a.userid = b.id
+        where 1=1
+        <if test="type != null" >
+            and a.type = #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="discussid != null" >
+            and a.discussid = #{discussid,jdbcType=VARCHAR}
+        </if>
+        <if test="userid != null" >
+            and a.userid = #{userid,jdbcType=INTEGER}
+        </if>
+        <if test="pudate != null" >
+            and  a.pudate = #{pudate,jdbcType=VARCHAR}
+        </if>
+        <if test="agree != null" >
+            and  a.agree = #{agree,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null" >
+            and a.status = #{status,jdbcType=CHAR}
+        </if>
+    ) c LEFT JOIN tbl_user d on c.touserid = d.id;
   </select>
 
   <delete id="delete" parameterType="java.lang.Integer" >
@@ -88,7 +150,7 @@
         #{discussid,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        #{userid,jdbcType=VARCHAR},
+        #{userid,jdbcType=INTEGER},
       </if>
       <if test="pudate != null" >
         #{pudate,jdbcType=VARCHAR},
@@ -124,7 +186,7 @@
         discussid = #{discussid,jdbcType=VARCHAR},
       </if>
       <if test="userid != null" >
-        userid = #{userid,jdbcType=VARCHAR},
+        userid = #{userid,jdbcType=INTEGER},
       </if>
       <if test="pudate != null" >
         pudate = #{pudate,jdbcType=VARCHAR},
