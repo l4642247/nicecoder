@@ -132,8 +132,8 @@
       <if test="ob2 != null" >
         ob2,
       </if>
-      <if test="ob3 != null" >
-        ob3,
+      <if test="touserid != null" >
+        touserid,
       </if>
       <if test="content != null" >
         content,
@@ -167,8 +167,8 @@
       <if test="ob2 != null" >
         #{ob2,jdbcType=VARCHAR},
       </if>
-      <if test="ob3 != null" >
-        #{ob3,jdbcType=VARCHAR},
+      <if test="touserid != null" >
+        #{touserid,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARBINARY},
@@ -203,8 +203,8 @@
       <if test="ob2 != null" >
         ob2 = #{ob2,jdbcType=VARCHAR},
       </if>
-      <if test="ob3 != null" >
-        ob3 = #{ob3,jdbcType=VARCHAR},
+      <if test="touserid != null" >
+        ob3 = #{touserid,jdbcType=VARCHAR},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARBINARY},

@@ -1,13 +1,14 @@
+.gbook{padding: 0px 20px}
 .gbko { margin-top: 100px;}
 .comment-num{ margin-top:40px;font-weight: bold; color: #666; font-size: 16px;}
 .layui-form {margin-top: 20px;}
 .dis-item { overflow: hidden;}
 .user-image {width: 10%; min-width:60px; float: left;}
 .user-image img{width: 40px; height:40px;}
-.dis-content {width: 80%; float: left; padding: 5px 5px 5px 20px; border-left: solid #bbbbbb 2px; position: relative; border-radius: 3px; margin-bottom: 30px;}
+.dis-content {width: 80%; float: left; padding: 5px 5px 5px 20px; border-left: solid #bbbbbb 2px; position: relative; border-radius: 3px; margin-bottom: 20px;}
 .dis-content .content-info:after,.dis-content .content-info:before {content: ""; border: solid 10px transparent;border-left: none;border-right-color: #bbbbbb;position: absolute;left: -10px;top: 10px;}
 .dis-content .content-info:after {border-right-color: #fff; left: -8px;}
-.dis-item{margin-top: 40px;}
+.dis-item{margin-top: 20px;}
 .reply{display: block; margin-top:10px; color: #666; margin-left: 5px;}
 .user-say{margin-top:10px;}
-.dis-item-sub{width: 90%; margin-left: 10%; overflow: hidden; margin-top:20px;}
+.dis-item-sub{width: 90%; margin-left: 10%; overflow: hidden;}

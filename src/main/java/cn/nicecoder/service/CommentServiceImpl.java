@@ -2,7 +2,9 @@ package cn.nicecoder.service;
 
 import cn.nicecoder.domain.TblComment;
 import cn.nicecoder.util.DateUtil;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CommentServiceImpl implements CommentService {
 
     @Override

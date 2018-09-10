@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head th:replace="~{fragments/front/common :: commonHeader('留言板')}"></head>
 <head>
-    <link href="css/info.css" th:href="@{/css/word.css}" rel="stylesheet">
+    <link href="css/info.css" th:href="@{/css/gbook.css}" rel="stylesheet">
     <link href="layui/css/layui.css" th:href="@{/layui/css/layui.css}" rel="stylesheet">
 </head>
 
@@ -29,7 +29,7 @@
                         <div class="dis-item" th:each="tblComment : ${tblCommentList}">
                             <div class="user-image">
                                 <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
-                                <a href="#" class="reply">回复</a>
+                                <a href="javascript:;" onclick="reply(this)" class="reply" style="display: block;">回复</a>
                             </div>
                             <div class="dis-content">
                                 <div class="content-info">
@@ -46,8 +46,8 @@
                                 </div>
                                 <div class="dis-content">
                                     <div class="content-info">
-                                        <div class="user-card"><a href="#" th:text="${tblCommentSub.name}">社会龙</a>&nbsp;&nbsp;<span th:text="${tblCommentSub.pudate}">2018/06/27 17:45 </span></div>
-                                        <div class="user-say" th:text="${tblCommentSub.content}">
+                                        <div class="user-card"><a href="#" th:text="${tblCommentSub.name}">社会龙</a> @ <a href="#" th:text="${tblComment.name}">社会龙</a>&nbsp;&nbsp;<span th:text="${tblCommentSub.pudate}">2018/06/27 17:45 </span></div>
+                                        <div class="user-say" th:text="${tblCommentSub.ob1}">
                                             社会我龙哥，人狠话不多<br>
                                         </div>
                                     </div>
@@ -61,6 +61,7 @@
                         <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦....</p>
                         <form class="layui-form" action="commentAdd" method="post">
                             <div class="layui-form-item">
+                                <input type="hidden" name="id" >
                                 <input type="text" style="margin-left: 0;" name="name"  lay-verify="required" autocomplete="off" class="layui-input" placeholder="昵称：">
                                 <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="邮箱：">
                                 <input type="text" name="website" autocomplete="off" class="layui-input" placeholder="网址：">
@@ -95,6 +96,17 @@
             });
         });
     });
+
+    function reply(element){
+        var tmp = $(element).parent().parent();
+        $(".gbko").css('width','90%');
+        $(".gbko").css('margin-left','10%');
+        tmp.append($(".gbko"));
+
+        //改变a
+        $(element).attr('href','#');
+        $(element).text('取消回复');
+    }
 
     $(function(){
     })
