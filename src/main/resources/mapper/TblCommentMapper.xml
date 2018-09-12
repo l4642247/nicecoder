@@ -68,7 +68,7 @@
   </select>
 
   <select id="findAllSub" resultMap="ResultMapWithBLOBs" parameterType="map" >
-    select c.*, d.image as toimage, d.name as tomane from (
+    select c.*, d.image as toimage, d.name as toname from (
         select
         a.id, type, discussid, userid, pudate, agree, status, a.ob1, a.ob2, a.touserid
         ,

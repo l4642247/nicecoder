@@ -24,17 +24,17 @@
                 <h2><i class="layui-icon" style="font-size: 15px; color: #20B2AA;">&#xe642;</i>留言板</h2>
                 <ul>
                     <div class="discontent">
-                        <p class="comment-num"><i class="layui-icon layui-icon-reply-fill" style="font-size: 30px;"></i>  724 thoughts on “留言板”</p>
+                        <p class="comment-num"><i class="layui-icon layui-icon-reply-fill" style="font-size: 30px;"></i>  <span th:text="${count + ' thoughts on “留言板”'}">724 thoughts on “留言板”</span></p>
 
                         <div class="dis-item" th:each="tblComment : ${tblCommentList}">
                             <div class="user-image">
                                 <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
-                                <a href="javascript:;" onclick="reply(this)" class="reply" style="display: block;">回复</a>
+                                <a href="javascript:;" onclick="reply(this)" th:onclick=" ${'reply(this,' + tblComment.id +  ','+ tblComment.userid  + ',0'+')'}" class="reply" style="display: block;">回复</a>
                             </div>
                             <div class="dis-content">
                                 <div class="content-info">
                                     <div class="user-card"><a href="#" th:text="${tblComment.name}">社会龙</a>&nbsp;&nbsp;<span th:text="${tblComment.pudate}">2018/06/27 17:45 </span></div>
-                                    <div class="user-say" th:text="${tblComment.ob1}">
+                                    <div class="user-say" th:utext="${tblComment.ob1}">
                                         社会我龙哥，人狠话不多<br>
                                     </div>
                                 </div>
@@ -42,12 +42,12 @@
                             <div class="dis-item-sub" th:each="tblCommentSub : ${tblComment.getTblCommentList()}">
                                 <div class="user-image">
                                     <img src="images/aha.jpg" th:src="@{/images/aha.jpg}">
-                                    <a href="#" class="reply">回复</a>
+                                    <a href="javascript:;" onclick="reply(this)" th:onclick=" ${'reply(this,' + tblComment.id + ','+ tblCommentSub.userid + ',1'+')'}" class="reply">回复</a>
                                 </div>
                                 <div class="dis-content">
                                     <div class="content-info">
-                                        <div class="user-card"><a href="#" th:text="${tblCommentSub.name}">社会龙</a> @ <a href="#" th:text="${tblComment.name}">社会龙</a>&nbsp;&nbsp;<span th:text="${tblCommentSub.pudate}">2018/06/27 17:45 </span></div>
-                                        <div class="user-say" th:text="${tblCommentSub.ob1}">
+                                        <div class="user-card"><a href="#" th:text="${tblCommentSub.name}">社会龙</a> @ <a href="#" th:text="${tblCommentSub.toname}">社会龙</a>&nbsp;&nbsp;<span th:text="${tblCommentSub.pudate}">2018/06/27 17:45 </span></div>
+                                        <div class="user-say" th:utext="${tblCommentSub.ob1}">
                                             社会我龙哥，人狠话不多<br>
                                         </div>
                                     </div>
@@ -58,12 +58,14 @@
                     </div>
 
                     <div class="gbko">
-                        <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦....</p>
+                        <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦...</p>
                         <form class="layui-form" action="commentAdd" method="post">
                             <div class="layui-form-item">
                                 <input type="hidden" name="id" >
-                                <input type="text" style="margin-left: 0;" name="name"  lay-verify="required" autocomplete="off" class="layui-input" placeholder="昵称：">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="邮箱：">
+                                <input type="hidden" name="type" value="0">
+                                <input type="hidden" name="touserid" value="0">
+                                <input type="text" style="margin-left: 0;" name="name" required   lay-verify="required" autocomplete="off" class="layui-input" placeholder="昵称：">
+                                <input type="text" name="email" required  lay-verify="email" autocomplete="off" class="layui-input" placeholder="邮箱：">
                                 <input type="text" name="website" autocomplete="off" class="layui-input" placeholder="网址：">
                             </div>
                             <div class="layui-form-item layui-form-text" style="margin-top:10px;">
@@ -84,7 +86,8 @@
 <script>
     var layedit;
     var index;
-    $(function(){
+
+    function _init_layedit(){
         //编辑器部分
         layui.use('layedit', function(){
             layedit = layui.layedit;
@@ -95,21 +98,59 @@
                 width: 720
             });
         });
-    });
-
-    function reply(element){
-        var tmp = $(element).parent().parent();
-        $(".gbko").css('width','90%');
-        $(".gbko").css('margin-left','10%');
-        tmp.append($(".gbko"));
-
-        //改变a
-        $(element).attr('href','#');
-        $(element).text('取消回复');
     }
 
     $(function(){
-    })
+        _init_layedit();
+    });
+
+    //回复
+    function reply(element, id, touserid, type){
+        //设置id
+        $("input[name='id']").val(id);
+        $("input[name='type']").val("1");
+        $("input[name='touserid']").val(touserid);
+
+        var tmp = $(element).parent().parent();
+        if(type == 0) {
+            $(".gbko").css('width', '90%');
+            $(".gbko").css('margin-left', '10%');
+            $(".gbko").css('margin-top', '20px');
+        }else{
+            $(".gbko").css('width', '100%');
+            $(".gbko").css('margin-left', '0');
+            $(".gbko").css('margin-top', '20px');
+        }
+        tmp.append($(".gbko"));
+
+        //改变a
+        $(element).attr('onclick','disReply(this, '+id+')');
+        $(element).text('取消');
+
+        //重新加载
+        _init_layedit();
+    }
+
+    //取消回复
+    function disReply(element, id , touserid){
+        //设置id
+        $("input[name='id']").val("");
+        $("input[name='type']").val("0");
+        $("input[name='touserid']").val("0");
+
+        var tmp = $(".discontent");
+        $(".gbko").css('width','100%');
+        $(".gbko").css('margin-left','0');
+        tmp.append($(".gbko"));
+
+        //改变a
+        $(element).attr('onclick','reply(this,'+id+')');
+        $(element).text('回复');
+
+        //重新加载
+        _init_layedit();
+    }
+
 </script>
 </body>
 </html>

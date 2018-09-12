@@ -114,23 +114,27 @@ public class CoreController {
         Map queryMap = new HashMap();
         queryMap.put("type", "0");
         queryMap.put("status", "1");
+        int count = 0;
         List<TblComment> tblCommentList = tblCommentMapper.findAll(queryMap);
+        count = tblCommentList.size();
         for(TblComment tblComment : tblCommentList){
             commentServiceImpl.commentListDeal(tblComment);
             queryMap.put("discussid",tblComment.getId());
             queryMap.put("type","1");
             List<TblComment> tblCommentListSub = tblCommentMapper.findAllSub(queryMap);
+            count += tblCommentListSub.size();
             for(TblComment tblCommentSub : tblCommentListSub){
                 commentServiceImpl.commentListDeal(tblCommentSub);
             }
             tblComment.setTblCommentList(tblCommentListSub);
         }
         mv.addObject("tblCommentList",tblCommentList);
+        mv.addObject("count",count);
         return mv;
     }
 
     @PostMapping("/commentAdd")
-    public String gbookAdd(@RequestParam(value="name") String name, @RequestParam(value="email") String email, @RequestParam(value="website" ,required = false) String website,
+    public String gbookAdd(@RequestParam(value="name") String name, @RequestParam(value="email") String email, @RequestParam(value="website" ,required = false) String website, @RequestParam(value="touserid" ,required = false) Integer touserid,
                            @RequestParam(value="discuss")  String discuss, @RequestParam(value="type", required = false)  String type, @RequestParam(value="id" ,required = false)  String id){
         //查询用户
         TblUser tblUser = tblUserMapper.selectByEmail(email);
@@ -153,6 +157,7 @@ public class CoreController {
         tc.setContent(discuss.getBytes());
         tc.setDiscussid(id);
         tc.setUserid(userId);
+        tc.setTouserid(touserid == null? 0 : touserid);
         tc.setPudate(DateUtil.getCurrentTime24());
         tblCommentMapper.insert(tc);
         return "redirect:gbook.html";
