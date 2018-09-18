@@ -54,8 +54,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
+                    <!--分页-->
+                    <div id="page"></div>
 
                     <div class="gbko">
                         <p>告诉你一个秘密，只要填写昵称和邮箱就可以留言了,并且还要誓死保密你邮箱哦...</p>
@@ -150,6 +152,23 @@
         //重新加载
         _init_layedit();
     }
+
+
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+
+        laypage.render({
+            elem: 'page'
+            ,count: 150
+            ,first: '首页'
+            ,last: '尾页'
+            ,theme: '#FF5722'
+            ,jump: function(obj){
+                alert(obj.limit + "  " +obj.curr);
+            }
+        });
+    });
 
 </script>
 </body>

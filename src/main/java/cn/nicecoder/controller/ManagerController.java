@@ -44,10 +44,10 @@ public class ManagerController {
         return "admin/index";
     }
 
-    @GetMapping("/login.html")
-    public String login(){
-        System.out.print("----=---");
-        return "login8888888888";
+    @RequestMapping("/login")
+    public String login(Model model){
+        System.out.print("000");
+        return "/login";
     }
 
     @GetMapping("/login-error.html")
